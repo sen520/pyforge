@@ -2,7 +2,31 @@
 
 面向个人 GPU 的 Python 编程助手微调项目。目标是在 **NVIDIA RTX 4080 SUPER（16 GB 显存）** 上，微调一个可在本地使用的小型模型，改善其中文需求理解、Python 代码生成、代码解释、错误修复和单元测试生成表现。
 
-> 当前状态：项目规划与文档阶段。仓库尚未实现数据处理、训练、评估和推理程序；本文中的目录及流程属于开发约定。
+> 当前状态：已实现数据校验、分组划分、QLoRA 训练入口与单次推理入口。数据和标签逻辑已有自动化测试；真实 GPU 训练与适配器重载尚待在 Python 3.12 环境验证。隔离代码评估器尚未实现。
+
+## 本地开始
+
+本地 RTX 4060 Laptop GPU（8 GB）用于冒烟测试，RTX 4080 SUPER（16 GB）用于正式实验。请先阅读 [本地开发指南](docs/本地开发指南.md)。
+
+在已激活的 Python 3.12 虚拟环境中：
+
+```powershell
+python -m pip install -e .
+python -m unittest discover -s tests -v
+python scripts/make_demo_data.py data/demo.jsonl
+pyforge validate data/demo.jsonl
+pyforge prepare data/demo.jsonl data/prepared
+```
+
+训练前需安装支持本机驱动的 CUDA 版 PyTorch，以及训练扩展依赖，详见指南。安装完成后：
+
+```powershell
+pyforge doctor
+pyforge train --config configs/smoke_4060.json --data data/prepared --output outputs/smoke-001
+pyforge chat --run outputs/smoke-001 --prompt "用 Python 编写一个判断偶数的函数"
+```
+
+合成示例数据只验证管线，不代表真实训练集或有效能力评估。首次训练会下载基础模型，需要网络与足够磁盘空间。
 
 ## 项目目标
 
@@ -21,7 +45,7 @@
 | 基础模型 | `Qwen/Qwen2.5-Coder-1.5B-Instruct` | 已具备编程与对话能力，适合作为小规模实验起点 |
 | 训练方式 | SFT + QLoRA | 4-bit 加载基础权重，仅训练 LoRA 参数 |
 | 计算精度 | BF16 | 启动时检测环境支持，失败时显式报错或使用验证过的 FP16 配置 |
-| 训练框架 | PyTorch、Transformers、PEFT、TRL、Datasets、bitsandbytes | 实现阶段验证兼容性并锁定版本 |
+| 训练框架 | PyTorch、Transformers Trainer、PEFT、Accelerate、bitsandbytes | 当前依赖范围尚非实测锁定版本；首版直接使用 Trainer |
 | 运行环境 | 优先 WSL2 / Linux + NVIDIA CUDA | 原生 Windows 作为后续兼容验证项 |
 | 交互方式 | 本地命令行 | 后续按需增加 API 或页面 |
 
@@ -31,10 +55,10 @@
 
 - GPU：RTX 4080 SUPER，16 GB 显存；训练前关闭其他占用 GPU 的应用。
 - 主机内存：建议至少 32 GB；磁盘建议预留 50 GB，用于模型缓存、数据与检查点。实际需求随数据和保存策略变化。
-- Python：计划使用 3.11；依赖版本以实现阶段提交的锁定文件为准。
+- Python：支持 3.11 / 3.12，当前开发目标为 3.12；GPU 环境验证后再提交实测依赖锁定文件。
 - 先使用 `nvidia-smi` 检查驱动与 GPU 状态，再验证 PyTorch 能否访问 CUDA。该命令显示的 CUDA 版本不能代替 PyTorch 运行时兼容性检查。
 
-不在文档阶段固定未经验证的 CUDA / PyTorch 版本组合，也不提供尚不存在的训练脚本命令。
+CUDA / PyTorch 组合须通过本机自检；训练命令已实现，但尚未完成真实 GPU 验证。
 
 ## 计划工作流
 
@@ -57,9 +81,10 @@
 pyforge/
 ├── README.md
 ├── docs/
-├── configs/             # 训练、数据与推理配置（待实现）
-├── src/pyforge/         # 数据、训练、评估、推理模块（待实现）
-├── tests/               # 自动化测试（待实现）
+├── configs/             # 4060 冒烟与 4080 训练配置
+├── src/pyforge/         # 数据、编码、训练、推理与 CLI
+├── scripts/             # 合成冒烟数据生成器
+├── tests/               # 数据与标签逻辑测试
 ├── data/                # 本地数据，不提交原始语料（待创建）
 └── outputs/             # 训练产物与报告，不提交模型权重（待创建）
 ```

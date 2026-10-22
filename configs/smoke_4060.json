@@ -1,0 +1,12 @@
+{
+  "model": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+  "revision": "main",
+  "max_length": 512,
+  "lora_rank": 8,
+  "lora_alpha": 16,
+  "gradient_accumulation_steps": 4,
+  "learning_rate": 0.0001,
+  "epochs": 1,
+  "max_steps": 10,
+  "seed": 42
+}
