@@ -11,7 +11,8 @@ dependencies = []
 
 [project.optional-dependencies]
 train = [
-  "torch>=2.6,<3",
+  # CUDA 构建需先从官方 cu124 源安装；版本声明本身不选择 CUDA 安装源。
+  "torch==2.6.0",
   "transformers>=4.51,<5",
   "peft>=0.15,<0.19",
   "accelerate>=1.6,<2",
