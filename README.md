@@ -28,6 +28,30 @@ pyforge chat --run outputs/smoke-001 --prompt "用 Python 编写一个判断偶�
 
 合成示例数据只验证管线，不代表真实训练集或有效能力评估。首次训练会下载基础模型，需要网络与足够磁盘空间。
 
+## 提前下载模型
+
+在已激活的 Python 3.12 虚拟环境中安装下载工具：
+
+```powershell
+python -m pip install "huggingface_hub>=0.34,<1"
+```
+
+本地 RTX 4060 冒烟测试使用 0.5B 模型：
+
+```powershell
+hf download Qwen/Qwen2.5-Coder-0.5B-Instruct --cache-dir D:/sen/pyforge/models/hub
+```
+
+RTX 4080 SUPER 正式实验使用 1.5B 模型，可按需下载：
+
+```powershell
+hf download Qwen/Qwen2.5-Coder-1.5B-Instruct --cache-dir D:/sen/pyforge/models/hub
+```
+
+上述路径对应当前仓库位置；如果项目放在其他位置，请替换为该项目下 `models/hub` 的绝对路径。训练和推理代码自动使用项目内的这一缓存目录，无需设置环境变量。手动下载使用 `--cache-dir`，以保持与代码一致的缓存布局。
+
+下载中断后重新执行相同命令即可复用已完成的缓存。模型文件不提交到 Git。下载工具与参数说明见 [Hugging Face 官方 CLI 文档](https://huggingface.co/docs/huggingface_hub/en/guides/cli)。
+
 ## 项目目标
 
 - 根据中文或英文需求生成清晰、可运行的 Python 代码。
