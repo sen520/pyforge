@@ -28,6 +28,31 @@ pyforge chat --run outputs/smoke-001 --offline --prompt "用 Python 编写一个
 
 三个训练用文件统一放在同一目录：`datasets/train.jsonl`、`datasets/validation.jsonl`、`datasets/test.jsonl`。题目来源放在 `datasets/sources/`，检查记录放在 `datasets/metadata/`，独立算法评估题放在 `datasets/benchmarks/`，旧版硅基流动数据放在 `datasets/archive/`。这些数据均提交 Git；模型、原始输出与下载缓存不提交。
 
+## 训练、验证与测试
+
+完整命令见[训练运行指南的命令速查](docs/训练运行指南.md#训练验证与测试命令速查)，包括连续多轮训练、断点恢复、验证损失查看、单题推理、Docker 算法评估与项目测试。
+
+```powershell
+# 检查三个数据文件的格式
+pyforge validate datasets/train.jsonl
+pyforge validate datasets/validation.jsonl
+pyforge validate datasets/test.jsonl
+
+# 使用新目录训练；5 轮需先设置 epochs=5、max_steps=-1
+pyforge train --config configs/smoke_4060.json --data datasets --output outputs/train-003 --offline
+
+# 验证在训练时自动执行；查看最佳验证损失和检查点
+Get-Content outputs/train-003/metrics.json
+
+# 测试适配器的单次回答
+pyforge chat --run outputs/train-003 --offline --max-new-tokens 512 --prompt "编写保持原顺序的列表去重函数，并给出边界条件测试。"
+
+# 测试项目代码
+python -m unittest discover -s tests -v
+```
+
+`validate` 是数据校验，不是模型评估。留出问答集 `datasets/test.jsonl` 尚无自动批量评估命令；独立算法题执行评估需先准备模型预测文件，详见上述指南。
+
 ## 当前训练数据
 
 当前默认使用 Codex 直接编写的 100 题答案，位于 `datasets/`：训练 90 条、验证 5 条、留出 5 条。实现题、pytest 测试题及解释示例均已实际执行检查；本轮不调用硅基流动或其他模型 API。详情见 [数据集说明](datasets/数据集说明.md)。这是小规模实验数据，不代表已完成全面正确性证明或人工审核。
