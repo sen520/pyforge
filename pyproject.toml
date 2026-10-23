@@ -10,6 +10,7 @@ requires-python = ">=3.11,<3.13"
 dependencies = []
 
 [project.optional-dependencies]
+plot = ["matplotlib>=3.9,<4"]
 train = [
   # CUDA 构建需先从官方 cu124 源安装；版本声明本身不选择 CUDA 安装源。
   "torch==2.6.0",
