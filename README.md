@@ -92,11 +92,21 @@ python scripts/predict_eval.py --run outputs/train-doocs-001 --base --output out
 pyforge evaluate --suite datasets/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions outputs/doocs_base_predictions_v2.jsonl --report outputs/doocs_base_report_v2.json --timeout 10
 ```
 
+两边生成和执行完成后，按相同题号创建逐题对照表：
+
+```powershell
+python scripts/compare_eval.py --base-predictions outputs/doocs_base_predictions_v2.jsonl --base-report outputs/doocs_base_report_v2.json --finetuned-predictions outputs/doocs_finetuned_predictions_v2.jsonl --finetuned-report outputs/doocs_finetuned_report_v2.json --output outputs/comparison-v2
+```
+
+输出逐题对比.md、逐题答案对比.html、comparison.json。表格展示两边状态和改善/退步，HTML 可展开题面及两边完整原始答案。脚本核对同一题库、模型快照、训练清单、生成参数、Docker 镜像及超时，条件不同会拒绝比较。
+
 重点看 passed、total、pass_at_1 和 results。tokens 为生成 token 数，truncated=False 只表示未因长度上限截断，不代表正确。预测与报告拒绝覆盖，重复评估换新文件名。这些命令评估保留的 20 道算法题，不是新增的 123 条问答；本地用例也不是官方隐藏测试。见[算法评估运行指南](docs/算法评估运行指南.md)。
 
 ## 已提交的实验记录
 
-[reports/train-doocs-001](reports/train-doocs-001/实验说明.md) 含真实清单、1,146 步日志、指标、20 条原始预测及后续追加的执行报告。最佳检查点 checkpoint-1100，验证损失 0.3515698。实际执行通过 10/20（50%），7 题答案错误、3 题运行错误；尚无同条件基础模型对比，不能直接解释成微调收益。
+[reports/train-doocs-001](reports/train-doocs-001/实验说明.md) 含真实清单、1,146 步日志、指标和两边各 20 条原始预测及执行报告。最佳检查点 checkpoint-1100，验证损失 0.3515698。同条件结果：基础模型 12/20（60%），微调模型 10/20（50%），2 题改善、4 题退步、8 题均通过、6 题均未通过。本轮在这 20 题上净下降 10 个百分点，不应宣称微调收益。
+
+完整表格和答案见[逐题对比](reports/train-doocs-001/comparison/逐题对比.md)、[可展开答案对比](reports/train-doocs-001/comparison/逐题答案对比.html)及同目录的模型评估对比.xlsx；Excel 含逐题结果和完整题面/回答两个工作表。
 
 克隆后可直接绘图或执行已提交的预测，无需模型：
 

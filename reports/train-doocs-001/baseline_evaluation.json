@@ -1,0 +1,129 @@
+{
+  "total": 20,
+  "passed": 12,
+  "pass_at_1": 0.6,
+  "suite_sha256": "9ed1aff9cc77d22541be9c4497dec4ffd59ff7ecfdc71a974dcfb51efcb1f3fe",
+  "predictions_sha256": "ab0239596ea29708a3debe96311181ee0c85af57964a3b8616567baa02bbdd21",
+  "execution_mode": "docker",
+  "image_id": "sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704",
+  "timeout_seconds_per_problem": 10.0,
+  "results": [
+    {
+      "id": "doocs-leetcode-0009",
+      "status": "passed",
+      "passed_cases": 6,
+      "total_cases": 6
+    },
+    {
+      "id": "doocs-leetcode-0011",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0015",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0017",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0022",
+      "status": "wrong_answer",
+      "passed_cases": 1,
+      "total_cases": 3
+    },
+    {
+      "id": "doocs-leetcode-0036",
+      "status": "wrong_answer",
+      "passed_cases": 3,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0058",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0066",
+      "status": "runtime_error"
+    },
+    {
+      "id": "doocs-leetcode-0067",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0069",
+      "status": "wrong_answer",
+      "passed_cases": 4,
+      "total_cases": 6
+    },
+    {
+      "id": "doocs-leetcode-0121",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0136",
+      "status": "runtime_error"
+    },
+    {
+      "id": "doocs-leetcode-0169",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0202",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0205",
+      "status": "wrong_answer",
+      "passed_cases": 3,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0217",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0219",
+      "status": "wrong_answer",
+      "passed_cases": 3,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0228",
+      "status": "wrong_answer",
+      "passed_cases": 1,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0268",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    },
+    {
+      "id": "doocs-leetcode-0383",
+      "status": "passed",
+      "passed_cases": 5,
+      "total_cases": 5
+    }
+  ],
+  "scope": "仅本地编写的测试；不等于官方隐藏测试通过率"
+}
