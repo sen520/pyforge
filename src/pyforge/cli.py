@@ -9,6 +9,14 @@ def main():
     parser = argparse.ArgumentParser(description="PyForge Python 编程助手微调")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("doctor", help="检查 CUDA 与 BF16")
+    generation = commands.add_parser("generate", help="使用硅基流动生成教师问答候选数据")
+    generation.add_argument("--source", default="datasets/seed_questions.jsonl")
+    generation.add_argument("--output", default="outputs/teacher_v1")
+    generation.add_argument("--limit", type=int, default=3)
+    generation.add_argument("--max-tokens", type=int, default=2048)
+    generation.add_argument("--workers", type=int, default=1)
+    generation.add_argument("--skip-uncertain", action="store_true", help="跳过结果未确认的请求，仅生成其他题目")
+    generation.add_argument("--timeout", type=int, default=120)
     evaluation = commands.add_parser("evaluate", help="Docker 隔离评估算法回答")
     evaluation.add_argument("--suite", required=True)
     evaluation.add_argument("--predictions", required=True)
@@ -39,6 +47,10 @@ def main():
         elif args.command == "evaluate":
             from .evaluation import evaluate
             result = evaluate(args.suite, args.predictions, args.report, args.image, args.timeout)
+        elif args.command == "generate":
+            from .generation import generate
+            result = generate(args.source, args.output, args.limit, args.max_tokens, args.timeout,
+                              workers=args.workers, skip_uncertain=args.skip_uncertain)
         else:
             from .training import chat as generate, gpu_check, train
             if args.command == "doctor":
