@@ -51,7 +51,16 @@ pyforge chat --run outputs/train-003 --offline --max-new-tokens 512 --prompt "�
 python -m unittest discover -s tests -v
 ```
 
-`validate` 是数据校验，不是模型评估。留出问答集 `datasets/test.jsonl` 尚无自动批量评估命令；独立算法题执行评估需先准备模型预测文件，详见上述指南。
+`validate` 是数据校验，不是模型评估。当前 5 道留出题可离线批量生成，并在 Docker 中检查：
+
+```powershell
+python scripts/evaluate_holdout.py generate --run outputs/train-002 --output outputs/holdout-train-002-v1
+python scripts/evaluate_holdout.py score --run outputs/train-002 --output outputs/holdout-train-002-v1
+```
+
+脚本分别生成基础模型和微调模型的答案；输出目录须为新目录。GPU、镜像准备、报告及适用范围见训练指南。独立算法题执行评估仍需另行准备预测文件。
+
+已完成 train-002 的 5 题留出集对比：基础模型 0/5，微调模型 1/5；仅代表有限用例结果，详见[留出集测试报告](docs/留出集测试报告.md)。
 
 ## 当前训练数据
 
