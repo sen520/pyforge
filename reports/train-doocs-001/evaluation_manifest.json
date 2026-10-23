@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "evaluation_status": "completed",
+  "source": "outputs/doocs_finetuned_report_v1.json",
+  "evaluation_sha256": "86a00cc4128b1625d72c75f38285981128be708b0f0d8cdb01e2465cadeaf23d",
+  "predictions_sha256": "270f27ea0f4a3fc30b4312e92868f806417e2197824aaf0392ddac928e4dea54",
+  "suite_sha256": "9ed1aff9cc77d22541be9c4497dec4ffd59ff7ecfdc71a974dcfb51efcb1f3fe",
+  "initial_archive_manifest_sha256": "fe3ef2024dc970e23e39f1651c9cdda587368040845e3c4cf5a86b2b96238687",
+  "note": "在原始训练/预测归档后追加执行结果；原始 archive_manifest 保留创建时状态，不改写。"
+}

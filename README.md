@@ -96,7 +96,7 @@ pyforge evaluate --suite datasets/benchmarks/doocs-leetcode/executable_v1.jsonl 
 
 ## 已提交的实验记录
 
-[reports/train-doocs-001](reports/train-doocs-001/实验说明.md) 含真实清单、1,146 步日志、指标和 20 条原始预测。最佳检查点 checkpoint-1100，验证损失 0.3515698。本次整理时 Docker 引擎未运行，执行报告尚未生成，不能宣称本轮通过率。
+[reports/train-doocs-001](reports/train-doocs-001/实验说明.md) 含真实清单、1,146 步日志、指标、20 条原始预测及后续追加的执行报告。最佳检查点 checkpoint-1100，验证损失 0.3515698。实际执行通过 10/20（50%），7 题答案错误、3 题运行错误；尚无同条件基础模型对比，不能直接解释成微调收益。
 
 克隆后可直接绘图或执行已提交的预测，无需模型：
 

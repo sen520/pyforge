@@ -22,6 +22,18 @@ class ExperimentExportTests(unittest.TestCase):
         status = json.loads((root / 'run_status.json').read_text(encoding='utf-8'))
         self.assertEqual(status['step'], 1146)
 
+    def test_appended_evaluation_matches_archived_predictions(self):
+        root = ROOT / 'reports/train-doocs-001'
+        digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+        report = json.loads((root / 'evaluation.json').read_text(encoding='utf-8'))
+        manifest = json.loads((root / 'evaluation_manifest.json').read_text(encoding='utf-8'))
+        self.assertEqual(manifest['evaluation_sha256'], digest(root / 'evaluation.json'))
+        self.assertEqual(manifest['initial_archive_manifest_sha256'], digest(root / 'archive_manifest.json'))
+        self.assertEqual(report['predictions_sha256'], digest(root / 'predictions.jsonl'))
+        self.assertEqual(report['suite_sha256'], digest(ROOT / 'datasets/benchmarks/doocs-leetcode/executable_v1.jsonl'))
+        self.assertEqual(report['passed'], sum(r['status'] == 'passed' for r in report['results']))
+        self.assertEqual(report['total'], len(report['results']))
+
     def test_in_progress_export_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
