@@ -10,7 +10,7 @@ def main():
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("doctor", help="检查 CUDA 与 BF16")
     generation = commands.add_parser("generate", help="使用硅基流动生成教师问答候选数据")
-    generation.add_argument("--source", default="datasets/seed_questions.jsonl")
+    generation.add_argument("--source", default="datasets/sources/seed_questions.jsonl")
     generation.add_argument("--output", default="outputs/teacher_v1")
     generation.add_argument("--limit", type=int, default=3)
     generation.add_argument("--max-tokens", type=int, default=2048)

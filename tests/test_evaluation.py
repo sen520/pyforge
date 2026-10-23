@@ -52,7 +52,7 @@ class EvaluationTests(unittest.TestCase):
     @unittest.skipUnless(os.environ.get("PYFORGE_DOCKER_TESTS") == "1", "需要 Docker 集成测试环境")
     def test_full_suite_in_docker(self):
         root = Path(__file__).resolve().parents[1]
-        suite = root / "data/validation/doocs-leetcode/executable_v1.jsonl"
+        suite = root / "datasets/benchmarks/doocs-leetcode/executable_v1.jsonl"
         source = (Path(__file__).parent / "reference_solutions.py").read_text(encoding="utf-8")
         rows = [json.loads(line) for line in suite.read_text(encoding="utf-8").splitlines()]
         with tempfile.TemporaryDirectory() as tmp:

@@ -8,15 +8,8 @@ __pycache__/
 .env
 .env.*
 !.env.example
-# 仅同步已审核的示例与验证数据；上游仓库和其他本地数据默认忽略。
-/data/*
-!/data/demo.jsonl
-!/data/prepared/
-!/data/teacher_v1/
-!/data/codex_v1/
-!/data/validation/
-/data/validation/*
-!/data/validation/doocs-leetcode/
+# 已审核数据统一存放 datasets；data 仅保留本地下载缓存。
+data/
 outputs/
 models/
 .cache/

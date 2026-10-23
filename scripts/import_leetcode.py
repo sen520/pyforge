@@ -9,7 +9,7 @@ from pyforge.leetcode import build_validation
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", default="data/sources/doocs-leetcode")
-    parser.add_argument("--output", default="data/validation/doocs-leetcode")
+    parser.add_argument("--output", default="datasets/benchmarks/doocs-leetcode")
     parser.add_argument("--overlap-rules", default="configs/leetcode_overlap.json")
     args = parser.parse_args()
     manifest = build_validation(args.source, args.output, args.overlap_rules)

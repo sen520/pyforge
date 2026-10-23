@@ -13,27 +13,27 @@
 ```powershell
 python -m pip install -e .
 python -m unittest discover -s tests -v
-pyforge validate data/demo.jsonl
+pyforge validate datasets/train.jsonl
 ```
 
 训练前需安装支持本机驱动的 CUDA 版 PyTorch，以及训练扩展依赖，详见指南。安装完成后：
 
 ```powershell
 pyforge doctor
-pyforge train --config configs/smoke_4060.json --data data/prepared --output outputs/smoke-001
+pyforge train --config configs/smoke_4060.json --data datasets --output outputs/smoke-001
 pyforge chat --run outputs/smoke-001 --prompt "用 Python 编写一个判断偶数的函数"
 ```
 
-合成示例数据只验证管线，不代表真实训练集或有效能力评估。首次训练会下载基础模型，需要网络与足够磁盘空间。
+首次训练会下载基础模型，需要网络与足够磁盘空间。旧的加法示例数据已删除，冒烟测试也使用当前问答数据。
 
-示例数据 `data/demo.jsonl`、已划分的 `data/prepared/`、完整算法验证候选集与 20 题可执行子集 `data/validation/doocs-leetcode/` 已提交 Git，可直接使用。原创种子题位于 `datasets/seed_questions.jsonl`。模型、输出及上游原始仓库不提交。若需重新生成或划分，请使用新路径，脚本拒绝覆盖已有文件和非空目录。
+三个训练用文件统一放在同一目录：`datasets/train.jsonl`、`datasets/validation.jsonl`、`datasets/test.jsonl`。题目来源放在 `datasets/sources/`，检查记录放在 `datasets/metadata/`，独立算法评估题放在 `datasets/benchmarks/`，旧版硅基流动数据放在 `datasets/archive/`。这些数据均提交 Git；模型、原始输出与下载缓存不提交。
 
 ## 当前训练数据
 
-当前默认使用 Codex 直接编写的 100 题答案，位于 `data/codex_v1/`：训练 90 条、验证 5 条、留出 5 条。实现题、pytest 测试题及解释示例均已实际执行检查；本轮不调用硅基流动或其他模型 API。详情见 [数据集说明](data/codex_v1/数据集说明.md)。这是小规模实验数据，不代表已完成全面正确性证明或人工审核。
+当前默认使用 Codex 直接编写的 100 题答案，位于 `datasets/`：训练 90 条、验证 5 条、留出 5 条。实现题、pytest 测试题及解释示例均已实际执行检查；本轮不调用硅基流动或其他模型 API。详情见 [数据集说明](datasets/数据集说明.md)。这是小规模实验数据，不代表已完成全面正确性证明或人工审核。
 
 ```powershell
-pyforge train --config configs/train_4080.json --data data/codex_v1 --output outputs/train-codex-001
+pyforge train --config configs/train_4080.json --data datasets --output outputs/train-codex-001
 ```
 
 ## 提前下载模型
@@ -102,7 +102,7 @@ CUDA / PyTorch 组合须通过本机自检；训练命令已实现，但尚未�
 6. 在冻结测试集上比较基础模型与适配器模型。
 7. 输出适配器、训练清单、评估报告和本地推理入口。
 
-历史硅基流动数据保留在 `data/teacher_v1/`，不再作为当前默认训练集；不要与新数据直接合并，以免重复题或分组泄漏。
+历史硅基流动数据保留在 `datasets/archive/teacher_v1/`，不再作为当前默认训练集；不要与新数据直接合并，以免重复题或分组泄漏。
 
 ## 文档导航
 
@@ -114,7 +114,7 @@ CUDA / PyTorch 组合须通过本机自检；训练命令已实现，但尚未�
 
 - [算法验证集说明](docs/算法验证集说明.md)：从 doocs/leetcode 提取的独立验证候选集、复现方式及评估边界。
 
-- [题库说明](docs/题库说明.md)：首批 100 道原创种子题及教师模型作答流程；题库位于 `datasets/seed_questions.jsonl`。
+- [题库说明](docs/题库说明.md)：首批 100 道原创种子题及教师模型作答流程；题库位于 `datasets/sources/seed_questions.jsonl`。
 
 - [开发文档](docs/开发文档.md)：架构、模块职责、配置、训练与开发里程碑。
 - [数据与评估规范](docs/数据与评估规范.md)：数据格式、质量规则、划分与验收标准。
@@ -127,10 +127,11 @@ pyforge/
 ├── docs/
 ├── configs/             # 4060 冒烟与 4080 训练配置
 ├── src/pyforge/         # 数据、编码、训练、推理与 CLI
-├── scripts/             # 合成冒烟数据生成器
+├── scripts/             # 答案编写、数据构建与检查
 ├── tests/               # 数据与标签逻辑测试
-├── data/                # 本地数据，不提交原始语料（待创建）
-└── outputs/             # 训练产物与报告，不提交模型权重（待创建）
+├── datasets/            # train / validation / test，以及来源、评估题和归档
+├── data/                # 上游仓库下载缓存，不提交
+└── outputs/             # 训练产物、临时构建和原始响应，不提交
 ```
 
 ## 资料与许可

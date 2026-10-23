@@ -111,6 +111,6 @@ def verify(source, image='pyforge-eval:py312-pytest835'):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source',default='data/codex_v1/candidates.jsonl')
+    parser.add_argument('--source',default='outputs/codex_build/candidates.jsonl')
     args=parser.parse_args()
     print(json.dumps(verify(args.source),ensure_ascii=False,indent=2))

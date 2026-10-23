@@ -195,6 +195,6 @@ def verify(source, output, image="python:3.12-slim"):
 if __name__ == "__main__":
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source",default="outputs/teacher_v1/candidates.jsonl")
-    parser.add_argument("--output",default="data/teacher_v1")
+    parser.add_argument("--output",default="outputs/legacy_teacher_review")
     args=parser.parse_args()
     print(json.dumps(verify(args.source,args.output),ensure_ascii=False,indent=2))

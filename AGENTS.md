@@ -8,7 +8,9 @@
 
 ## 数据编写
 
-- 默认由 Codex 直接编写、检查训练答案，使用 `data/codex_v1/`；硅基流动数据仅保留为历史版本。
+- 默认由 Codex 直接编写、检查训练答案，使用 `datasets/`；硅基流动数据仅保留为历史版本。
+- 当前三个集合固定为 `datasets/train.jsonl`、`datasets/validation.jsonl`、`datasets/test.jsonl`。来源、检查记录、算法评估与旧数据分别放入 sources、metadata、benchmarks、archive 子目录。
+- 旧加法示例已清理；按用户要求保留旧版硅基流动数据和原始输出。
 - 除非用户重新明确要求，不调用硅基流动或其他付费模型 API 生成答案。
 - 答案必须记录真实来源；自动执行检查不能标记为人工审核。
 
