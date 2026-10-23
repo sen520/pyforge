@@ -237,6 +237,8 @@ def chat(run_dir, prompt, max_new_tokens=512, offline=False):
     if inputs.shape[1] + max_new_tokens > model.config.max_position_embeddings:
         raise ValueError("输入与生成长度超过模型上下文长度")
     with torch.inference_mode():
+        # 基础模型默认启用采样；贪心推理时清除其采样参数，保留 EOS 等配置。
         generated = model.generate(inputs, attention_mask=torch.ones_like(inputs), do_sample=False,
+            temperature=None, top_p=None, top_k=None,
             max_new_tokens=max_new_tokens, pad_token_id=tokenizer.pad_token_id)
     return tokenizer.decode(generated[0, inputs.shape[1]:], skip_special_tokens=True)
