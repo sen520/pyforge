@@ -76,6 +76,23 @@ python scripts/plot_training.py outputs/train-doocs-001 --style trend --window 2
 
 ## 新模型的独立算法评估
 
+推荐用一条命令完成“同一 20 题分别发给基础模型与微调模型 → 相同 Docker 测试 → 逐题表格”：
+
+```powershell
+pyforge benchmark --run outputs/train-doocs-001 --output outputs/benchmark-001
+```
+
+默认离线加载项目模型缓存，生成上限 1024 token，执行超时每题 10 秒。Docker Desktop 与 python:3.12-slim 镜像必须已准备好；先自检，再开始耗时生成。基础模型指未加载本次 LoRA 的原始模型。两次生成在独立进程中顺序执行，避免同时占用 GPU。
+
+命令自动完成五步：基础预测、微调预测、基础执行、微调执行、生成对照。结束时终端打印 20 行结果表，并保存：
+
+- outputs/benchmark-001/comparison/逐题答案对比.html：结果表，可展开同一题面与两边完整原始回答。
+- outputs/benchmark-001/comparison/逐题对比.md：20 行结果与汇总。
+- outputs/benchmark-001/comparison/comparison.json：机器可读数据与来源哈希。
+- 输出根目录的两份预测、生成清单、执行报告与 pipeline_status.json。
+
+输出目录必须是新目录；中断或失败会记录阶段，不会伪造完成状态。当前一键入口不支持从中间阶段恢复；已有完整预测/报告时可用下面的分步入口，不必重新生成。自动生成的是 HTML/Markdown 表格，不依赖 Excel 或桌面应用；此前提供的 xlsx 是该次对照的额外导出文件。
+
 Docker Desktop 需已启动并使用 Linux 容器。预测只读取 prompt，不提供 tests 或参考答案：
 
 ```powershell

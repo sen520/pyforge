@@ -23,6 +23,14 @@ def main():
     evaluation.add_argument("--report", required=True)
     evaluation.add_argument("--image", default="python:3.12-slim")
     evaluation.add_argument("--timeout", type=float, default=5)
+    comparison = commands.add_parser("benchmark", help="一键生成基础/微调答案、执行相同测试并输出对照表")
+    comparison.add_argument("--run", required=True)
+    comparison.add_argument("--output", required=True)
+    comparison.add_argument("--suite", help="默认使用保留的 20 道可执行算法题")
+    comparison.add_argument("--data", default="datasets")
+    comparison.add_argument("--max-new-tokens", type=int, default=1024)
+    comparison.add_argument("--image", default="python:3.12-slim")
+    comparison.add_argument("--timeout", type=float, default=10)
     validate = commands.add_parser("validate", help="校验 JSONL 数据")
     validate.add_argument("source")
     split = commands.add_parser("prepare", help="按 group_id 划分数据")
@@ -50,6 +58,10 @@ def main():
         elif args.command == "evaluate":
             from .evaluation import evaluate
             result = evaluate(args.suite, args.predictions, args.report, args.image, args.timeout)
+        elif args.command == "benchmark":
+            from .benchmark import benchmark, DEFAULT_SUITE
+            result = benchmark(args.run, args.output, args.suite or DEFAULT_SUITE, args.data,
+                args.max_new_tokens, args.image, args.timeout)
         elif args.command == "generate":
             from .generation import generate
             result = generate(args.source, args.output, args.limit, args.max_tokens, args.timeout,
