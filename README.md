@@ -13,9 +13,7 @@
 ```powershell
 python -m pip install -e .
 python -m unittest discover -s tests -v
-python scripts/make_demo_data.py data/demo.jsonl
 pyforge validate data/demo.jsonl
-pyforge prepare data/demo.jsonl data/prepared
 ```
 
 训练前需安装支持本机驱动的 CUDA 版 PyTorch，以及训练扩展依赖，详见指南。安装完成后：
@@ -27,6 +25,8 @@ pyforge chat --run outputs/smoke-001 --prompt "用 Python 编写一个判断偶�
 ```
 
 合成示例数据只验证管线，不代表真实训练集或有效能力评估。首次训练会下载基础模型，需要网络与足够磁盘空间。
+
+示例数据 `data/demo.jsonl`、已划分的 `data/prepared/`、完整算法验证候选集与 20 题可执行子集 `data/validation/doocs-leetcode/` 已提交 Git，可直接使用。原创种子题位于 `datasets/seed_questions.jsonl`。模型、输出及上游原始仓库不提交。若需重新生成或划分，请使用新路径，脚本拒绝覆盖已有文件和非空目录。
 
 ## 提前下载模型
 
