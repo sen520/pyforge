@@ -1,0 +1,24 @@
+{
+  "tokenizer": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+  "revision": "ea3f2471cf1b1f0db85067f1ef93848e38e88c25",
+  "splits": {
+    "train": {
+      "count": 90,
+      "max_tokens": 364,
+      "within_512": 90,
+      "within_1024": 90
+    },
+    "validation": {
+      "count": 5,
+      "max_tokens": 223,
+      "within_512": 5,
+      "within_1024": 5
+    },
+    "test": {
+      "count": 5,
+      "max_tokens": 273,
+      "within_512": 5,
+      "within_1024": 5
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "total": 100,
+  "verified": 100,
+  "splits": {
+    "train": 90,
+    "validation": 5,
+    "test": 5
+  },
+  "external_model_api_calls": 0,
+  "author": "Codex",
+  "files_sha256": {
+    "train": "f94ac2a9f0504c6f7c7e7560657b82f9111635754bdbfe2eb214f0b09a575e7e",
+    "validation": "f794a4c2e73c340db8ba8ccbb46dbef84ec5ac76aaccf73809f774f44e0e12bd",
+    "test": "a487fc88b2c63027405e8e2fce35b1790132c243427337a630192182f436e068",
+    "pending_review": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limitations": "通过自有功能用例、示例断言与指定错误实现检查，不是形式化证明，也未进行人工审核"
+}

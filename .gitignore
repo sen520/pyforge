@@ -13,6 +13,7 @@ __pycache__/
 !/data/demo.jsonl
 !/data/prepared/
 !/data/teacher_v1/
+!/data/codex_v1/
 !/data/validation/
 /data/validation/*
 !/data/validation/doocs-leetcode/

@@ -28,12 +28,12 @@ pyforge chat --run outputs/smoke-001 --prompt "用 Python 编写一个判断偶�
 
 示例数据 `data/demo.jsonl`、已划分的 `data/prepared/`、完整算法验证候选集与 20 题可执行子集 `data/validation/doocs-leetcode/` 已提交 Git，可直接使用。原创种子题位于 `datasets/seed_questions.jsonl`。模型、输出及上游原始仓库不提交。若需重新生成或划分，请使用新路径，脚本拒绝覆盖已有文件和非空目录。
 
-## 首批教师训练数据
+## 当前训练数据
 
-已使用硅基流动 `deepseek-ai/DeepSeek-V4-Pro` 获取 99 条回答，其中 83 条通过自有 Docker 功能检查：训练 75 条、验证 4 条、留出 4 条，位于 `data/teacher_v1/`。另有 16 条待复核；1 道题因网络异常未收到答案。详情见 [数据集说明](data/teacher_v1/数据集说明.md)。这批数据用于初步实验，尚未完成人工审核。
+当前默认使用 Codex 直接编写的 100 题答案，位于 `data/codex_v1/`：训练 90 条、验证 5 条、留出 5 条。实现题、pytest 测试题及解释示例均已实际执行检查；本轮不调用硅基流动或其他模型 API。详情见 [数据集说明](data/codex_v1/数据集说明.md)。这是小规模实验数据，不代表已完成全面正确性证明或人工审核。
 
 ```powershell
-pyforge train --config configs/train_4080.json --data data/teacher_v1 --output outputs/train-teacher-001
+pyforge train --config configs/train_4080.json --data data/codex_v1 --output outputs/train-codex-001
 ```
 
 ## 提前下载模型
@@ -102,9 +102,13 @@ CUDA / PyTorch 组合须通过本机自检；训练命令已实现，但尚未�
 6. 在冻结测试集上比较基础模型与适配器模型。
 7. 输出适配器、训练清单、评估报告和本地推理入口。
 
+历史硅基流动数据保留在 `data/teacher_v1/`，不再作为当前默认训练集；不要与新数据直接合并，以免重复题或分组泄漏。
+
 ## 文档导航
 
-- [教师数据生成指南](docs/教师数据生成指南.md)：硅基流动配置、断点续跑、独立检查与训练数据导出。
+- [答案编写与检查指南](docs/答案编写与检查指南.md)：无需模型 API 的答案来源、离线构建和 Docker 检查流程。
+
+- [历史教师数据生成指南](docs/教师数据生成指南.md)：旧版硅基流动工具，仅保留历史说明，不作为当前流程。
 
 - [算法评估运行指南](docs/算法评估运行指南.md)：20 道题、100 个用例的可执行子集与 Docker 评估命令。
 
