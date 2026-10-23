@@ -47,6 +47,10 @@ class EvaluationTests(unittest.TestCase):
         self.assertEqual(run_isolated("class Solution:\n def f(self, x): return x+1", problem, image)["status"], "passed")
         self.assertEqual(run_isolated("class Solution:\n def f(self, x): return x", problem, image)["status"], "wrong_answer")
         self.assertEqual(run_isolated("raise ValueError('test')", problem, image)["status"], "runtime_error")
+        detailed = run_isolated("class Solution:\n def f(self, x): return x", problem, image, include_details=True)
+        self.assertEqual(detailed['case_results'], [False])
+        detailed = run_isolated("raise ValueError('audit-detail')", problem, image, include_details=True)
+        self.assertIn('audit-detail', detailed['stderr'])
         self.assertEqual(run_isolated("while True: pass", problem, image, timeout=2)["status"], "timeout")
 
     @unittest.skipUnless(os.environ.get("PYFORGE_DOCKER_TESTS") == "1", "需要 Docker 集成测试环境")

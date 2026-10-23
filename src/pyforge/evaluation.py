@@ -75,7 +75,7 @@ def docker_environment(image):
         raise RuntimeError("Docker 不可用：" + str(exc)) from exc
 
 
-def run_isolated(code, problem, image_id, timeout=5):
+def run_isolated(code, problem, image_id, timeout=5, include_details=False):
     name = "pyforge-eval-" + uuid.uuid4().hex
     with tempfile.TemporaryDirectory(prefix="pyforge-eval-") as directory:
         directory = Path(directory)
@@ -101,12 +101,16 @@ def run_isolated(code, problem, image_id, timeout=5):
                 stdout.seek(0)
                 stderr.seek(0)
                 data = stdout.read(65537)
-                if len(data) + len(stderr.read(65537)) > 65536:
+                error_data = stderr.read(65537)
+                if len(data) + len(error_data) > 65536:
                     return {"status": "output_limit"}
                 if process.returncode in (125, 126, 127):
                     raise RuntimeError("容器启动失败：" + str(process.returncode))
                 if process.returncode:
-                    return {"status": "runtime_error"}
+                    result = {"status": "runtime_error"}
+                    if include_details:
+                        result['stderr'] = error_data.decode('utf-8', errors='replace')[-4000:]
+                    return result
                 try:
                     values = json.loads(data)
                 except (ValueError, UnicodeError):
@@ -114,7 +118,10 @@ def run_isolated(code, problem, image_id, timeout=5):
                 if not isinstance(values, list) or len(values) != len(problem["tests"]):
                     return {"status": "invalid_output"}
                 passed = sum(compare(value, case["expected"], problem["comparator"]) for value, case in zip(values, problem["tests"]))
-                return {"status": "passed" if passed == len(values) else "wrong_answer", "passed_cases": passed, "total_cases": len(values)}
+                result = {"status": "passed" if passed == len(values) else "wrong_answer", "passed_cases": passed, "total_cases": len(values)}
+                if include_details:
+                    result['case_results'] = [compare(value, case['expected'], problem['comparator']) for value, case in zip(values, problem['tests'])]
+                return result
             finally:
                 cleanup = subprocess.run(["docker", "rm", "-f", name], capture_output=True, timeout=15)
                 if process.poll() is None:

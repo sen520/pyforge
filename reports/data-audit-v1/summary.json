@@ -1,0 +1,17 @@
+{
+  "sample_sha256": "b7c65868b74ff85d2e4c017a2d6093d906b7df4ec393cabea6e9f20d18c549a2",
+  "checker_sha256": "af90bb2710f0c8bf2d191796b533d4baf1102930f481dfbabca776c8b793ba5d",
+  "runner_sha256": "b407a6fbf78f1dc609fd6b46205c992a77c17cea1f30ba219a3c1fa3773bfd7c",
+  "image_id": "sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704",
+  "timeout_seconds": 15,
+  "total": 200,
+  "counts": {
+    "passed": 189,
+    "unsupported_adapter": 10,
+    "runtime_error": 1
+  },
+  "upstream_examples": 462,
+  "independent_cases": 290,
+  "independent_case_problems": 91,
+  "scope": "固定抽样；本地示例/边界用例；不等于官方隐藏测试；未使用测试集；未修改训练答案；无人工作品审核"
+}

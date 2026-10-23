@@ -142,6 +142,7 @@ python scripts/export_experiment.py --run outputs/train-doocs-001 --output repor
 
 ## 文档导航
 
+- [训练数据审计](docs/训练数据审计.md)：固定 200 题执行审计、接口问题和后续对照实验；[本次报告](reports/data-audit-v1/审计说明.md)。
 - [项目文件与归档说明](docs/项目文件与归档说明.md)：目录、脚本依赖、清理与提交范围。
 - [开发文档](docs/开发文档.md)：当前模块、契约、检查策略和后续工作。
 - [训练运行指南](docs/训练运行指南.md)、[本地开发指南](docs/本地开发指南.md)：安装、训练、恢复与日志。

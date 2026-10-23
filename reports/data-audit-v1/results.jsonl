@@ -1,0 +1,200 @@
+{"id": "doocs-leetcode-0777", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-3221", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3191", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3180", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0373", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-4014", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-3746", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1711", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1759", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-1682", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3914", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3196", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-2150", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-1144", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-0320", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3969", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0707", "split": "train", "difficulty": "中等", "status": "unsupported_adapter", "reason": "不支持此类接口"}
+{"id": "doocs-leetcode-0898", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2332", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1079", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-2708", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2554", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-2186", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-3926", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-0162", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2036", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-2110", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-0362", "split": "train", "difficulty": "中等", "status": "unsupported_adapter", "reason": "不支持此类接口"}
+{"id": "doocs-leetcode-3315", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1186", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 7, "total_cases": 7, "case_results": [true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2187", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-0355", "split": "train", "difficulty": "中等", "status": "unsupported_adapter", "reason": "不支持此类接口"}
+{"id": "doocs-leetcode-0071", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 9, "total_cases": 9, "case_results": [true, true, true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-3080", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-4071", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1451", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-3365", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-0947", "split": "train", "difficulty": "中等", "status": "unsupported_adapter", "reason": "不支持此类接口"}
+{"id": "doocs-leetcode-1881", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2381", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1769", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-1432", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 8, "total_cases": 8, "case_results": [true, true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-3653", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1043", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2730", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-0487", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-1718", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3835", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-3708", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-3800", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-3362", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-2966", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-3788", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1006", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2434", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-2914", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2936", "split": "train", "difficulty": "中等", "status": "runtime_error", "stderr": "Traceback (most recent call last):\n  File \"/job/worker.py\", line 11, in <module>\n    result = getattr(namespace['Solution'](), job['method'])(*args)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<candidate>\", line 42, in verify\n  File \"<string>\", line 12, in countBlocks\nAttributeError: 'list' object has no attribute 'size'\n"}
+{"id": "doocs-leetcode-3466", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-3638", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3282", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0518", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-0453", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-0198", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-2740", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-3805", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2115", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-3215", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3942", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-3822", "split": "train", "difficulty": "中等", "status": "unsupported_adapter", "reason": "不支持此类接口"}
+{"id": "doocs-leetcode-0983", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2330", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 7, "total_cases": 7, "case_results": [true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-1999", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1737", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0306", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-1906", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-4040", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-2831", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3824", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3488", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1347", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-2211", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-3029", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-0260", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2743", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-3937", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0923", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-0532", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2606", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0869", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-3107", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-2439", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1663", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2140", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1358", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-0893", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-1525", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 8, "total_cases": 8, "case_results": [true, true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-1733", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2597", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-1573", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 8, "total_cases": 8, "case_results": [true, true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2452", "split": "train", "difficulty": "中等", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2025", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1036", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3177", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2573", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-3141", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2355", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-0899", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2604", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2931", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3287", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1671", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1255", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1611", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-3312", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1434", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-0815", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2681", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2999", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-0632", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1012", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 9, "total_cases": 9, "case_results": [true, true, true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2157", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3878", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1703", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-0312", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-3329", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0992", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-1416", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 8, "total_cases": 8, "case_results": [true, true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2819", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1032", "split": "train", "difficulty": "困难", "status": "unsupported_adapter", "reason": "不支持此类接口"}
+{"id": "doocs-leetcode-3250", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0736", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-0642", "split": "train", "difficulty": "困难", "status": "unsupported_adapter", "reason": "不支持此类接口"}
+{"id": "doocs-leetcode-3251", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1199", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-2472", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0656", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0336", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-2354", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3348", "split": "train", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1897", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-0703", "split": "train", "difficulty": "简单", "status": "unsupported_adapter", "reason": "不支持此类接口"}
+{"id": "doocs-leetcode-2562", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-0345", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-1678", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 7, "total_cases": 7, "case_results": [true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-4030", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-2970", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1470", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-1716", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-3978", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0693", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2164", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-3386", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-0266", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2942", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2169", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2917", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-3769", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3194", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-0796", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-0326", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 8, "total_cases": 8, "case_results": [true, true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-3754", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-0682", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-2582", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-3340", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-3870", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-0338", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2475", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-4056", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1502", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2409", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-1099", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-3842", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-3248", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-3940", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-1619", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 8, "total_cases": 8, "case_results": [true, true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-1085", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1323", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 7, "total_cases": 7, "case_results": [true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2535", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2432", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2900", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 2, "total_cases": 2, "case_results": [true, true]}
+{"id": "doocs-leetcode-3483", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 7, "total_cases": 7, "case_results": [true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-1431", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-1317", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 9, "total_cases": 9, "case_results": [true, true, true, true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2595", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2600", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 4, "total_cases": 4, "case_results": [true, true, true, true]}
+{"id": "doocs-leetcode-2129", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-0724", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-2960", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2578", "split": "train", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-0081", "split": "validation", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-0287", "split": "validation", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-2962", "split": "validation", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-1658", "split": "validation", "difficulty": "中等", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-1291", "split": "validation", "difficulty": "中等", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-0288", "split": "validation", "difficulty": "中等", "status": "unsupported_adapter", "reason": "不支持此类接口"}
+{"id": "doocs-leetcode-3193", "split": "validation", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-3721", "split": "validation", "difficulty": "困难", "status": "passed", "passed_cases": 3, "total_cases": 3, "case_results": [true, true, true]}
+{"id": "doocs-leetcode-1030", "split": "validation", "difficulty": "简单", "status": "passed", "passed_cases": 5, "total_cases": 5, "case_results": [true, true, true, true, true]}
+{"id": "doocs-leetcode-1614", "split": "validation", "difficulty": "简单", "status": "passed", "passed_cases": 6, "total_cases": 6, "case_results": [true, true, true, true, true, true]}
+{"id": "doocs-leetcode-0170", "split": "validation", "difficulty": "简单", "status": "unsupported_adapter", "reason": "不支持此类接口"}

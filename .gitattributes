@@ -2,3 +2,5 @@
 data/** -text
 datasets/** -text
 reports/** -text
+# 审计清单记录脚本的原始 SHA256，跨平台检出时固定换行。
+scripts/audit_training_data.py text eol=lf
