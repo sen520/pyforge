@@ -1,0 +1,21 @@
+{
+  "note": "人工保守排除与种子题相同或近似的任务；不代表完整语义去污染。",
+  "problem_ids": {
+    "1": "seed two_sum", "3": "seed longest_unique_substring", "14": "seed common_prefix",
+    "20": "seed valid_brackets", "26": "seed unique_sorted", "28": "seed substring_index",
+    "34": "seed binary_search", "35": "seed lower_bound", "48": "seed matrix transformations",
+    "49": "seed anagram_groups", "53": "seed max_subarray", "54": "seed spiral_order",
+    "56": "seed merge_intervals", "62": "seed grid_paths", "70": "seed climb_stairs",
+    "72": "seed edit_distance", "88": "seed merge_sorted", "118": "basic related recurrence",
+    "119": "basic related recurrence", "125": "seed is_palindrome", "128": "related sequence task",
+    "189": "seed rotate_right", "191": "seed popcount", "200": "seed graph components/flood_fill",
+    "204": "seed sieve", "207": "seed topological_order", "210": "seed topological_order",
+    "215": "seed k_largest", "238": "seed product_except_self", "242": "seed anagram_groups",
+    "283": "seed move_zeros", "300": "related increasing sequence", "322": "seed min_coins",
+    "349": "seed intersection", "350": "related intersection", "387": "seed first_unique",
+    "509": "seed fibonacci", "547": "seed connected_components", "674": "seed longest_increasing_run",
+    "704": "seed binary_search", "733": "seed flood_fill", "867": "seed transpose",
+    "912": "seed unique_sorted", "1137": "related recurrence", "1143": "seed longest_common_subsequence",
+    "1971": "seed graph reachability", "50": "seed fast_power"
+  }
+}
