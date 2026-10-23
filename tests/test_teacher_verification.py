@@ -16,6 +16,19 @@ class TeacherVerificationTests(unittest.TestCase):
         for checks in MODULE["CHECKS"].values():
             ast.parse(MODULE["HELPER"].replace("{checks}",checks))
 
+    def test_remove_embedded_tests_without_changing_function(self):
+        code="import pytest\ndef f(x):\n return x+1\n@pytest.fixture\ndef fixture_value(): return 1\ndef test_f(): assert f(1)==2"
+        result=MODULE["implementation_only"](code)
+        self.assertNotIn("pytest",result)
+        self.assertNotIn("test_f",result)
+        self.assertNotIn("fixture_value",result)
+        original=ast.parse(code).body[1]
+        cleaned=ast.parse(result).body[0]
+        self.assertEqual(ast.dump(original),ast.dump(cleaned))
+        # 反斜杠用例是真实路径分隔符，不能被错误转义为退格。
+        tree=ast.parse(MODULE["HELPER"].replace("{checks}",MODULE["CHECKS"][55]))
+        self.assertIn('a\\b',[n.value for n in ast.walk(tree) if isinstance(n,ast.Constant)])
+
     def test_unverified_not_exported_and_extra_blocks_removed(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)

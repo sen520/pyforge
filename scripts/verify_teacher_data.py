@@ -1,6 +1,7 @@
 """独立检查教师函数答案；只在 Docker 中执行，保留未验证样本。"""
 
 import argparse
+import ast
 import hashlib
 import json
 import re
@@ -65,7 +66,7 @@ CHECKS = {
 52: "import tempfile,pathlib,csv; d=tempfile.TemporaryDirectory(); p=pathlib.Path(d.name)/'x.csv'; write_csv_rows(p,[{'a':'x,y','extra':1}],['a','b']); assert list(csv.DictReader(p.open(encoding='utf-8',newline='')))==[{'a':'x,y','b':''}]; d.cleanup()",
 53: r"import tempfile,pathlib; d=tempfile.TemporaryDirectory(); p=pathlib.Path(d.name)/'x'; p.write_text('  a  \n \n中\n',encoding='utf-8'); assert list(iter_nonempty_lines(p))==['  a  ','中']; d.cleanup()",
 54: "assert count_extensions(['a.PY','b.py','README','.hidden','a.tar.gz'])=={'.py':2,'<none>':2,'.gz':1}",
-55: "from pathlib import Path; assert safe_child(Path('/tmp'),'x.txt')==Path('/tmp/x.txt'); raises(ValueError,lambda:safe_child('/tmp','../x')); raises(ValueError,lambda:safe_child('/tmp','a\\b')); raises(ValueError,lambda:safe_child('/tmp',''))",
+55: r"from pathlib import Path; assert safe_child(Path('/tmp'),'x.txt')==Path('/tmp/x.txt'); raises(ValueError,lambda:safe_child('/tmp','../x')); raises(ValueError,lambda:safe_child('/tmp','a\\b')); raises(ValueError,lambda:safe_child('/tmp',''))",
 56: "from datetime import date; assert parse_iso_date('2024-02-29')==date(2024,2,29); raises(ValueError,lambda:parse_iso_date('2023-02-29')); raises(ValueError,lambda:parse_iso_date('2024-2-9'))",
 57: "from datetime import date; assert date_range(date(2024,2,28),date(2024,3,1))==[date(2024,2,28),date(2024,2,29),date(2024,3,1)]; assert date_range(date(2024,2,2),date(2024,2,1))==[]",
 58: "a={'timestamp':'2024-01-01T00:30:00+02:00'}; r=group_by_day([a]); assert len(r)==1 and str(next(iter(r)))=='2023-12-31' and next(iter(r.values()))==[a]",
@@ -113,6 +114,31 @@ class Solution:
 '''
 
 
+def implementation_only(code):
+    """移除教师额外附加的 pytest 测试，不改变实现函数体。"""
+    tree = ast.parse(code)
+    body = []
+    changed = False
+    for node in tree.body:
+        if isinstance(node, ast.Import):
+            names = [name for name in node.names if name.name != "pytest"]
+            if len(names) != len(node.names):
+                changed = True
+                if names:
+                    body.append(ast.Import(names=names))
+                continue
+        if isinstance(node, ast.ImportFrom) and node.module == "pytest":
+            changed = True
+            continue
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            fixture = any("fixture" in ast.unparse(decorator) for decorator in node.decorator_list)
+            if node.name.startswith("test_") or node.name.startswith("Test") or fixture:
+                changed = True
+                continue
+        body.append(node)
+    return ast.unparse(ast.fix_missing_locations(ast.Module(body=body, type_ignores=[]))) if changed else code
+
+
 def verify(source, output, image="python:3.12-slim"):
     source, output = Path(source), Path(output)
     rows = [json.loads(line) for line in source.read_text(encoding="utf-8").splitlines()]
@@ -135,15 +161,16 @@ def verify(source, output, image="python:3.12-slim"):
         blocks = re.findall(r"```(?:python|python3|py)\s*\n(.*?)```", row["messages"][-1]["content"], re.S)
         check = CHECKS.get(number)
         if check and blocks:
-            result = run_isolated(blocks[0] + "\n" + HELPER.replace("{checks}", check),
+            code = implementation_only(blocks[0])
+            result = run_isolated(code + "\n" + HELPER.replace("{checks}", check),
                 {"method":"verify","comparator":"exact","tests":[{"args":[],"expected":True}]},manifest["image_id"],timeout=10)
             row["verification"] = {"syntax":True,"execution":result["status"]=="passed","human_review":False,"execution_status":result["status"]}
             if result["status"] == "passed":
                 # 保留原始响应文件；训练候选移除附加测试代码块，避免导入不存在的文件。
                 original = row["messages"][-1]["content"]
                 first = re.search(r"```(?:python|python3|py)\s*\n.*?```",original,re.S)
-                row["messages"][-1]["content"] = original[:first.end()]
-                row["normalization"] = "保留首个完整实现及其前置说明；额外测试和其他代码块仅保留于原始响应"
+                row["messages"][-1]["content"] = original[:first.start()] + "```python\n" + code.rstrip() + "\n```"
+                row["normalization"] = "保留首个完整实现及前置说明；移除额外 pytest 测试、夹具与其导入；原始响应单独保留"
         row["status"] = "execution_checked" if row["verification"]["execution"] else "pending_review"
         event = {k:row[k] for k in ("id","verification","status","messages")}
         if "normalization" in row:
