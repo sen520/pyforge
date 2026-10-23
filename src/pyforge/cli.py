@@ -9,6 +9,12 @@ def main():
     parser = argparse.ArgumentParser(description="PyForge Python 编程助手微调")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("doctor", help="检查 CUDA 与 BF16")
+    evaluation = commands.add_parser("evaluate", help="Docker 隔离评估算法回答")
+    evaluation.add_argument("--suite", required=True)
+    evaluation.add_argument("--predictions", required=True)
+    evaluation.add_argument("--report", required=True)
+    evaluation.add_argument("--image", default="python:3.12-slim")
+    evaluation.add_argument("--timeout", type=float, default=5)
     validate = commands.add_parser("validate", help="校验 JSONL 数据")
     validate.add_argument("source")
     split = commands.add_parser("prepare", help="按 group_id 划分数据")
@@ -30,6 +36,9 @@ def main():
             result = {"valid_records": len(read_records(args.source))}
         elif args.command == "prepare":
             result = prepare(args.source, args.destination, args.seed)
+        elif args.command == "evaluate":
+            from .evaluation import evaluate
+            result = evaluate(args.suite, args.predictions, args.report, args.image, args.timeout)
         else:
             from .training import chat as generate, gpu_check, train
             if args.command == "doctor":
