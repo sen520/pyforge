@@ -18,7 +18,7 @@ class HoldoutTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             source = root / 'test.jsonl'
-            source.write_bytes((ROOT / 'datasets/test.jsonl').read_bytes())
+            source.write_bytes((ROOT / 'datasets/archive/codex_v1/test.jsonl').read_bytes())
             (root / 'run_manifest.json').write_text(json.dumps({
                 'data_sha256': {'test': hashlib.sha256(source.read_bytes()).hexdigest()}}))
             _, rows = HOLDOUT['load_test'](root, source)

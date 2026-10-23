@@ -51,7 +51,7 @@ pyforge chat --run outputs/train-003 --offline --max-new-tokens 512 --prompt "�
 python -m unittest discover -s tests -v
 ```
 
-`validate` 是数据校验，不是模型评估。当前 5 道留出题可离线批量生成，并在 Docker 中检查：
+`validate` 是数据校验，不是模型评估。历史 5 道留出题已存档，以下脚本默认读取归档数据，可用于复跑 train-002；不适用于新扩充的 123 道测试题：
 
 ```powershell
 python scripts/evaluate_holdout.py generate --run outputs/train-002 --output outputs/holdout-train-002-v1
@@ -64,10 +64,15 @@ python scripts/evaluate_holdout.py score --run outputs/train-002 --output output
 
 ## 当前训练数据
 
-当前默认使用 Codex 直接编写的 100 题答案，位于 `datasets/`：训练 90 条、验证 5 条、留出 5 条。实现题、pytest 测试题及解释示例均已实际执行检查；本轮不调用硅基流动或其他模型 API。详情见 [数据集说明](datasets/数据集说明.md)。这是小规模实验数据，不代表已完成全面正确性证明或人工审核。
+当前默认数据位于 `datasets/`：训练 **2,292 条**、验证 **129 条**、新留出测试 **123 条**。新增 2,449 道 doocs 题目及其已有 Python 参考答案，保留真实来源；保留原有 90 条训练与 5 条验证问答。旧的 5 条测试已用于分析，存档到 `datasets/archive/codex_v1/`，不再充当新的独立留出集。
+
+原始 Codex 答案有 Docker 执行记录；新增上游答案仅通过语法、静态依赖、完整对话长度检查，**尚未逐题执行验证**。原有 20 道可执行算法评估题排除在新增训练/验证/测试划分外。详情见[数据集说明](datasets/数据集说明.md)与[训练数据扩充说明](docs/训练数据扩充说明.md)。本轮不调用模型 API。
 
 ```powershell
-pyforge train --config configs/train_4080.json --data datasets --output outputs/train-codex-001
+# 4060：使用 2048 token 配置，以免 512 token 过滤大部分新增问答
+pyforge train --config configs/train_4060.json --data datasets --output outputs/train-doocs-001 --offline
+# 4080 SUPER：需先准备对应 1.5B 模型
+pyforge train --config configs/train_4080.json --data datasets --output outputs/train-doocs-4080-001 --offline
 ```
 
 ## 提前下载模型

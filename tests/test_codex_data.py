@@ -22,7 +22,7 @@ class CodexDataTests(unittest.TestCase):
         self.assertEqual(manifest['verified'],100)
         self.assertEqual(manifest['external_model_api_calls'],0)
         for split,digest in manifest['files_sha256'].items():
-            path=(metadata if split=='pending_review' else root)/(split+'.jsonl')
+            path=(metadata if split=='pending_review' else root/'archive/codex_v1')/(split+'.jsonl')
             self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),digest)
         checks=[json.loads(line) for line in (metadata/'verification.jsonl').read_text(encoding='utf-8').splitlines()]
         self.assertEqual(len(checks),100)
