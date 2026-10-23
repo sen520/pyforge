@@ -13,6 +13,15 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class TrainingConfigTests(unittest.TestCase):
+    def test_config_accepts_utf8_with_and_without_bom(self):
+        source = ROOT / 'configs/train_4060.json'
+        expected = load_config(source)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'config.json'
+            for prefix in (b'', b'\xef\xbb\xbf'):
+                path.write_bytes(prefix + source.read_bytes())
+                self.assertEqual(load_config(path), expected)
+
     def test_offline_setting_applies_to_peft_save_and_hub_cache(self):
         from pyforge.paths import MODEL_CACHE_DIR
         from pyforge.training import configure_hub_runtime

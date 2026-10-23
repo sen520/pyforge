@@ -14,7 +14,8 @@ DEFAULTS = {"lora_dropout": 0.05, "save_steps": 100, "eval_steps": 100, "save_to
 
 
 def load_config(path):
-    raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    # Windows PowerShell 的 Set-Content -Encoding utf8 可能写入 BOM。
+    raw = json.loads(Path(path).read_text(encoding="utf-8-sig"))
     required = {"model", "revision", "max_length", "lora_rank", "lora_alpha", "gradient_accumulation_steps",
                 "learning_rate", "epochs", "max_steps", "seed"}
     if not isinstance(raw, dict) or required - raw.keys():
