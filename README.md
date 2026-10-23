@@ -58,9 +58,37 @@ python scripts/evaluate_holdout.py generate --run outputs/train-002 --output out
 python scripts/evaluate_holdout.py score --run outputs/train-002 --output outputs/holdout-train-002-v1
 ```
 
-脚本分别生成基础模型和微调模型的答案；输出目录须为新目录。GPU、镜像准备、报告及适用范围见训练指南。独立算法题执行评估仍需另行准备预测文件。
+脚本分别生成基础模型和微调模型的答案；输出目录须为新目录。GPU、镜像准备、报告及适用范围见训练指南。
 
 已完成 train-002 的 5 题留出集对比：基础模型 0/5，微调模型 1/5；仅代表有限用例结果，详见[留出集测试报告](docs/留出集测试报告.md)。
+
+### 新模型的独立算法评估
+
+对本次 `train-doocs-001` 模型，在已激活虚拟环境的项目根目录执行。Docker Desktop 需已启动并使用 Linux 容器；首次准备评估镜像：
+
+```powershell
+docker pull python:3.12-slim
+
+# 1. 离线批量生成 20 道题的答案（使用保存的最佳适配器）
+python scripts/predict_eval.py --run outputs/train-doocs-001 --output outputs/doocs_finetuned_predictions_v1.jsonl
+
+# 2. 在 Docker 中执行用例
+pyforge evaluate --suite datasets/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions outputs/doocs_finetuned_predictions_v1.jsonl --report outputs/doocs_finetuned_report_v1.json --timeout 10
+
+# 3. 查看通过题数、通过率和逐题结果
+Get-Content outputs/doocs_finetuned_report_v1.json
+```
+
+重点看报告的 `passed`、`total`、`pass_at_1` 和 `results`。生成进度中的 `tokens` 是输出 token 数，`truncated=False` 表示未因长度上限截断，不代表答案正确。预测与报告文件拒绝覆盖；重新评估时将文件名中的 `v1` 改为新版本号。
+
+如需比较同一基础模型，保持生成长度和执行超时一致，增加 `--base` 生成基线：
+
+```powershell
+python scripts/predict_eval.py --run outputs/train-doocs-001 --base --output outputs/doocs_base_predictions_v1.jsonl
+pyforge evaluate --suite datasets/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions outputs/doocs_base_predictions_v1.jsonl --report outputs/doocs_base_report_v1.json --timeout 10
+```
+
+以上使用保留的 **20 道题、100 个本地用例**，未加入此次扩充训练。它不是新划分的 123 条问答留出集；后者尚无统一执行器。本地用例通过率也不等于官方隐藏测试通过率，更多说明见[算法评估运行指南](docs/算法评估运行指南.md)。
 
 ## 当前训练数据
 
