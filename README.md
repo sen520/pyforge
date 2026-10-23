@@ -28,6 +28,14 @@ pyforge chat --run outputs/smoke-001 --prompt "用 Python 编写一个判断偶�
 
 示例数据 `data/demo.jsonl`、已划分的 `data/prepared/`、完整算法验证候选集与 20 题可执行子集 `data/validation/doocs-leetcode/` 已提交 Git，可直接使用。原创种子题位于 `datasets/seed_questions.jsonl`。模型、输出及上游原始仓库不提交。若需重新生成或划分，请使用新路径，脚本拒绝覆盖已有文件和非空目录。
 
+## 首批教师训练数据
+
+已使用硅基流动 `deepseek-ai/DeepSeek-V4-Pro` 获取 99 条回答，其中 83 条通过自有 Docker 功能检查：训练 75 条、验证 4 条、留出 4 条，位于 `data/teacher_v1/`。另有 16 条待复核；1 道题因网络异常未收到答案。详情见 [数据集说明](data/teacher_v1/数据集说明.md)。这批数据用于初步实验，尚未完成人工审核。
+
+```powershell
+pyforge train --config configs/train_4080.json --data data/teacher_v1 --output outputs/train-teacher-001
+```
+
 ## 提前下载模型
 
 在已激活的 Python 3.12 虚拟环境中安装下载工具：

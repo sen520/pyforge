@@ -1,0 +1,17 @@
+{
+  "completed": 99,
+  "candidates": 99,
+  "remaining": 1,
+  "uncertain_ids": [
+    "seed-022"
+  ],
+  "statuses": {
+    "syntax_checked_pending_review": 99
+  },
+  "usage": {
+    "prompt_tokens": 12826,
+    "completion_tokens": 38208,
+    "total_tokens": 51034
+  },
+  "note": "仅语法检查，未经独立测试或人工审核，不是最终训练集；费用以平台账单为准"
+}
