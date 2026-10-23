@@ -1,3 +1,4 @@
 # 冻结数据按原始字节保存，避免 autocrlf 改变 SHA256。
 data/** -text
 datasets/** -text
+reports/** -text

@@ -8,7 +8,7 @@ __pycache__/
 .env
 .env.*
 !.env.example
-# 已审核数据统一存放 datasets；data 仅保留本地下载缓存。
+# 数据及真实审核状态统一存放 datasets；data 仅保留本地下载缓存。
 data/
 outputs/
 models/
