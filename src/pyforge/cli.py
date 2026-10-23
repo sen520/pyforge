@@ -31,13 +31,16 @@ def main():
     split.add_argument("--seed", type=int, default=42)
     training = commands.add_parser("train", help="执行 QLoRA 训练")
     training.add_argument("--config", required=True)
-    training.add_argument("--data", required=True)
+    training.add_argument("--data", default="datasets")
     training.add_argument("--output", required=True)
     training.add_argument("--resume")
+    training.add_argument("--offline", action="store_true", help="仅使用项目中的模型缓存")
+    training.add_argument("--stop-after", type=int, help="达到指定全局步数后保存并提前停止，便于验证恢复")
     chat = commands.add_parser("chat", help="加载适配器，执行一次推理")
     chat.add_argument("--run", required=True)
     chat.add_argument("--prompt", required=True)
     chat.add_argument("--max-new-tokens", type=int, default=512)
+    chat.add_argument("--offline", action="store_true")
     args = parser.parse_args()
     try:
         if args.command == "validate":
@@ -56,11 +59,11 @@ def main():
             if args.command == "doctor":
                 result = gpu_check()
             elif args.command == "train":
-                result = train(args.config, args.data, args.output, args.resume)
+                result = train(args.config, args.data, args.output, args.resume, args.offline, args.stop_after)
             else:
                 if args.max_new_tokens <= 0:
                     raise ValueError("max-new-tokens 必须为正整数")
-                print(generate(args.run, args.prompt, args.max_new_tokens))
+                print(generate(args.run, args.prompt, args.max_new_tokens, args.offline))
                 return 0
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0

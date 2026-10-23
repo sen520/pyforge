@@ -2,7 +2,7 @@
 
 面向个人 GPU 的 Python 编程助手微调项目。目标是在 **NVIDIA RTX 4080 SUPER（16 GB 显存）** 上，微调一个可在本地使用的小型模型，改善其中文需求理解、Python 代码生成、代码解释、错误修复和单元测试生成表现。
 
-> 当前状态：已实现数据校验、分组划分、QLoRA 训练入口与单次推理入口。数据和标签逻辑已有自动化测试；真实 GPU 训练与适配器重载尚待在 Python 3.12 环境验证。已接入 20 题、100 用例的 Docker 算法评估器。
+> 当前状态：已实现数据校验、分组划分、QLoRA 训练入口与单次推理入口。已在原生 Windows、Python 3.12、RTX 4060 上完成 10 步真实 GPU 训练、完整断点恢复和适配器重载推理。已接入 20 题、100 用例的 Docker 算法评估器。
 
 ## 本地开始
 
@@ -20,11 +20,11 @@ pyforge validate datasets/train.jsonl
 
 ```powershell
 pyforge doctor
-pyforge train --config configs/smoke_4060.json --data datasets --output outputs/smoke-001
-pyforge chat --run outputs/smoke-001 --prompt "用 Python 编写一个判断偶数的函数"
+pyforge train --config configs/smoke_4060.json --data datasets --output outputs/smoke-001 --offline
+pyforge chat --run outputs/smoke-001 --offline --prompt "用 Python 编写一个判断偶数的函数"
 ```
 
-首次训练会下载基础模型，需要网络与足够磁盘空间。旧的加法示例数据已删除，冒烟测试也使用当前问答数据。
+上述离线命令需先完成下方的模型下载；移除 `--offline` 后，缓存缺失时会自动下载。训练、暂停与恢复详见 [训练运行指南](docs/训练运行指南.md)。旧的加法示例数据已删除，冒烟测试也使用当前问答数据。
 
 三个训练用文件统一放在同一目录：`datasets/train.jsonl`、`datasets/validation.jsonl`、`datasets/test.jsonl`。题目来源放在 `datasets/sources/`，检查记录放在 `datasets/metadata/`，独立算法评估题放在 `datasets/benchmarks/`，旧版硅基流动数据放在 `datasets/archive/`。这些数据均提交 Git；模型、原始输出与下载缓存不提交。
 
@@ -76,9 +76,9 @@ hf download Qwen/Qwen2.5-Coder-1.5B-Instruct --cache-dir D:/sen/pyforge/models/h
 | --- | --- | --- |
 | 基础模型 | `Qwen/Qwen2.5-Coder-1.5B-Instruct` | 已具备编程与对话能力，适合作为小规模实验起点 |
 | 训练方式 | SFT + QLoRA | 4-bit 加载基础权重，仅训练 LoRA 参数 |
-| 计算精度 | BF16 | 启动时检测环境支持，失败时显式报错或使用验证过的 FP16 配置 |
-| 训练框架 | PyTorch、Transformers Trainer、PEFT、Accelerate、bitsandbytes | 当前依赖范围尚非实测锁定版本；首版直接使用 Trainer |
-| 运行环境 | 优先 WSL2 / Linux + NVIDIA CUDA | 原生 Windows 作为后续兼容验证项 |
+| 计算精度 | BF16 | 启动时检测环境支持，不支持时显式报错 |
+| 训练框架 | PyTorch、Transformers Trainer、PEFT、Accelerate、bitsandbytes | 训练扩展版本已固定，并通过本机 4060 冒烟验证 |
+| 运行环境 | NVIDIA CUDA | 原生 Windows 已完成 4060 验证，其他环境需自检 |
 | 交互方式 | 本地命令行 | 后续按需增加 API 或页面 |
 
 这是一套起始实验方案，并非已验证的最优模型组合。首版通过验收后，再评估扩大模型规模的收益与显存成本。
@@ -87,10 +87,10 @@ hf download Qwen/Qwen2.5-Coder-1.5B-Instruct --cache-dir D:/sen/pyforge/models/h
 
 - GPU：RTX 4080 SUPER，16 GB 显存；训练前关闭其他占用 GPU 的应用。
 - 主机内存：建议至少 32 GB；磁盘建议预留 50 GB，用于模型缓存、数据与检查点。实际需求随数据和保存策略变化。
-- Python：支持 3.11 / 3.12，当前开发目标为 3.12；GPU 环境验证后再提交实测依赖锁定文件。
+- Python：支持 3.11 / 3.12，当前开发目标为 3.12；训练扩展已固定实测版本，完整版本记录见运行清单。
 - 先使用 `nvidia-smi` 检查驱动与 GPU 状态，再验证 PyTorch 能否访问 CUDA。该命令显示的 CUDA 版本不能代替 PyTorch 运行时兼容性检查。
 
-CUDA / PyTorch 组合须通过本机自检；训练命令已实现，但尚未完成真实 GPU 验证。
+CUDA / PyTorch 组合须通过本机自检；4060 的训练、保存、恢复与推理已验证，4080 SUPER 正式配置尚未实测。
 
 ## 计划工作流
 
@@ -105,6 +105,9 @@ CUDA / PyTorch 组合须通过本机自检；训练命令已实现，但尚未�
 历史硅基流动数据保留在 `datasets/archive/teacher_v1/`，不再作为当前默认训练集；不要与新数据直接合并，以免重复题或分组泄漏。
 
 ## 文档导航
+
+- [训练运行指南](docs/训练运行指南.md)：训练、离线加载、暂停恢复、输出文件与配置说明。
+- [训练验证记录](docs/训练验证记录.md)：4060 实测环境、损失与显存记录。
 
 - [答案编写与检查指南](docs/答案编写与检查指南.md)：无需模型 API 的答案来源、离线构建和 Docker 检查流程。
 
