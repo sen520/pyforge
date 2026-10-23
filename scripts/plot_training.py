@@ -62,13 +62,55 @@ def rolling_mean(points, window):
     return result
 
 
-def plot(log, output=None, window=0, dpi=160):
+def loss_trend_figure(plt, metrics, name, window):
+    fig, axis = plt.subplots(figsize=(12, 6), layout='constrained')
+    points = metrics['loss']
+    if points:
+        axis.plot(*zip(*points), color='#94a3b8', alpha=0.22, linewidth=0.7, label='Raw train loss')
+        blocks = [points[i:i + window] for i in range(0, len(points), window)]
+        complete = [block for block in blocks if len(block) == window]
+        means = [(sum(s for s, _ in b) / len(b), sum(v for _, v in b) / len(b)) for b in complete]
+        if means:
+            axis.plot(*zip(*means), color='#1d4ed8', linewidth=3, marker='o', markersize=5,
+                label=f'Train mean / {window} logged points')
+            first, last = means[0][1], means[-1][1]
+            subtitle = f'Complete-block train mean: {first:.4f} -> {last:.4f}'
+        else:
+            subtitle = f'Waiting for {window} train points; currently {len(points)}'
+        if blocks and len(blocks[-1]) < window:
+            tail = blocks[-1]
+            axis.scatter(sum(s for s, _ in tail) / len(tail), sum(v for _, v in tail) / len(tail),
+                s=70, marker='D', facecolors='none', edgecolors='#1d4ed8',
+                label=f'Partial block ({len(tail)}/{window} points)', zorder=4)
+    else:
+        subtitle = 'No train loss logged'
+    validation = metrics['eval_loss']
+    if validation:
+        axis.plot(*zip(*validation), color='#dc2626', linewidth=2.2, marker='s', markersize=6,
+            label='Validation loss (unsmoothed)', zorder=5)
+        best = min(validation, key=lambda p: p[1])
+        subtitle += f' | Best validation: {best[1]:.4f} at step {best[0]}'
+    axis.set(title=subtitle, xlabel='Optimizer step', ylabel='Loss', ylim=(0, None))
+    axis.grid(alpha=0.18)
+    axis.set_axisbelow(True)
+    if axis.get_legend_handles_labels()[0]:
+        axis.legend(frameon=False, loc='best')
+    fig.suptitle('Loss trend | ' + name, fontsize=16, fontweight='bold')
+    return fig
+
+
+def plot(log, output=None, window=0, dpi=160, style='scatter'):
     if window < 0 or dpi <= 0:
         raise ValueError('window 必须非负，dpi 必须为正')
     log = Path(log)
     if log.is_dir():
         log = log / 'training_log.jsonl'
-    output = Path(output) if output else log.parent / 'plots/training_scatter.png'
+    if style not in ('scatter', 'trend'):
+        raise ValueError('未知图表样式')
+    if style == 'trend' and window == 0:
+        window = 20
+    filename = 'loss_trend.png' if style == 'trend' else 'training_scatter.png'
+    output = Path(output) if output else log.parent / 'plots' / filename
     if output.suffix.lower() not in ('.png', '.svg', '.pdf'):
         raise ValueError('输出文件必须为 .png、.svg 或 .pdf')
     metrics = read_metrics(log)
@@ -79,6 +121,17 @@ def plot(log, output=None, window=0, dpi=160):
         import matplotlib.pyplot as plt
     except ImportError as exc:
         raise RuntimeError('请先安装绘图依赖：python -m pip install -e ".[plot]"') from exc
+
+    if style == 'trend':
+        with plt.rc_context({'font.size': 11, 'axes.spines.top': False, 'axes.spines.right': False}):
+            fig = loss_trend_figure(plt, metrics, log.parent.name, window)
+            output.parent.mkdir(parents=True, exist_ok=True)
+            try:
+                fig.savefig(output, dpi=dpi)
+            finally:
+                plt.close(fig)
+        return {'output': str(output.resolve()), 'style': style, 'window': window,
+            'points': {k: len(v) for k, v in metrics.items()}}
 
     with plt.rc_context({'font.size': 10, 'axes.spines.top': False, 'axes.spines.right': False}):
         fig, axes = plt.subplots(2, 2, figsize=(12, 8), layout='constrained')
@@ -122,9 +175,10 @@ def main():
     parser.add_argument('--output', help='输出 .png/.svg/.pdf；默认保存到运行目录 plots/training_scatter.png')
     parser.add_argument('--window', type=int, default=0, help='可选移动平均窗口；默认 0，只画散点')
     parser.add_argument('--dpi', type=int, default=160)
+    parser.add_argument('--style', choices=['scatter', 'trend'], default='scatter', help='trend 突出 loss 分段平均趋势，默认每 20 点一段')
     args = parser.parse_args()
     try:
-        print(json.dumps(plot(args.log, args.output, args.window, args.dpi), ensure_ascii=False, indent=2))
+        print(json.dumps(plot(args.log, args.output, args.window, args.dpi, args.style), ensure_ascii=False, indent=2))
     except (ValueError, OSError, RuntimeError) as exc:
         parser.exit(1, f'错误：{exc}\n')
 
