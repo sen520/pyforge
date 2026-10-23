@@ -1,6 +1,6 @@
 import unittest
 
-from pyforge.leetcode import extract_problem
+from pyforge.leetcode import extract_problem, replace_interface
 
 
 FIXTURE = '''---
@@ -23,6 +23,19 @@ class Solution:
 
 
 class LeetcodeTests(unittest.TestCase):
+    def test_solution_preferred_over_first_helper_class(self):
+        raw = FIXTURE.replace('class Solution:', 'class UnionFind:\n    def find(self, x):\n        return x\n\nclass Solution:')
+        self.assertTrue(extract_problem(raw)['interface'].startswith('class Solution:'))
+        # 设计题没有 Solution 时仍保留公开设计类。
+        self.assertTrue(extract_problem(FIXTURE.replace('class Solution:', 'class HitCounter:'))['interface'].startswith('class HitCounter:'))
+
+    def test_replace_only_unique_interface_block(self):
+        old = 'class Helper:\n    def f(self): ...'
+        prompt = '题面\n\n接口：\n```python\n' + old + '\n```'
+        self.assertEqual(replace_interface(prompt, old, 'class Solution: pass'), '题面\n\n接口：\n```python\nclass Solution: pass\n```')
+        with self.assertRaises(ValueError):
+            replace_interface(prompt + prompt, old, 'new')
+
     def test_extract_without_solution_leak(self):
         row = extract_problem(FIXTURE)
         self.assertEqual(row["problem_id"], 9999)

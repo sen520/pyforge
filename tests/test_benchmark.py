@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 import shutil
+import runpy
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -23,6 +24,7 @@ class BenchmarkTests(unittest.TestCase):
         shutil.copyfile(FIXTURES / 'run_manifest.json', run / 'run_manifest.json')
         for name in ('adapter_model.safetensors', 'adapter_config.json', 'tokenizer_config.json'):
             (run / 'adapter' / name).touch()
+        runpy.run_path(str(ROOT / 'scripts/repair_training_interfaces.py'))['restore'](root / 'original-data')
         return run
 
     def test_complete_workflow_pairs_all_twenty_and_outputs_table(self):
@@ -44,7 +46,7 @@ class BenchmarkTests(unittest.TestCase):
             with patch('pyforge.benchmark.docker_environment', return_value=image), \
                  patch('pyforge.benchmark.generate', side_effect=prediction), \
                  patch('pyforge.benchmark.evaluate', side_effect=evaluation):
-                result = benchmark(run, root / 'output', data=ROOT / 'datasets')
+                result = benchmark(run, root / 'output', data=root / 'original-data')
             self.assertEqual(calls, [(True, 1024), (False, 1024)])
             self.assertEqual(result['summary']['base']['passed'], 12)
             self.assertEqual(result['summary']['finetuned']['passed'], 10)
@@ -59,7 +61,7 @@ class BenchmarkTests(unittest.TestCase):
             with patch('pyforge.benchmark.docker_environment', side_effect=RuntimeError('Docker unavailable')), \
                  patch('pyforge.benchmark.generate') as prediction:
                 with self.assertRaisesRegex(RuntimeError, 'Docker'):
-                    benchmark(run, root / 'output', data=ROOT / 'datasets')
+                    benchmark(run, root / 'output', data=root / 'original-data')
                 prediction.assert_not_called()
             self.assertFalse((root / 'output').exists())
 
@@ -70,7 +72,7 @@ class BenchmarkTests(unittest.TestCase):
             with patch('pyforge.benchmark.docker_environment', return_value='sha256:fake'), \
                  patch('pyforge.benchmark.generate', side_effect=RuntimeError('generation failed')):
                 with self.assertRaisesRegex(RuntimeError, 'generation failed'):
-                    benchmark(run, root / 'output', data=ROOT / 'datasets')
+                    benchmark(run, root / 'output', data=root / 'original-data')
             status = json.loads((root / 'output/pipeline_status.json').read_text(encoding='utf-8'))
             self.assertEqual(status['status'], 'failed')
             self.assertEqual(status['stage'], 'generating_base')

@@ -1,0 +1,150 @@
+{
+  "scope": "947主接口修复执行复查；3822为设计类仍未适配；不是全部57题执行验证",
+  "image_id": "sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704",
+  "timeout": 15,
+  "repair_manifest_sha256": "a1b89fde7d4f067201cfc4c65e74ab9adbaf6683bab3bd992cc1ea92d1be791a",
+  "results": [
+    {
+      "id": "doocs-leetcode-0947",
+      "interface": "class Solution:\n    def removeStones(self, stones: List[List[int]]): ...",
+      "tests": [
+        {
+          "args": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                2
+              ]
+            ]
+          ],
+          "expected": 5,
+          "origin": "upstream_problem_example"
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                2
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                2,
+                2
+              ]
+            ]
+          ],
+          "expected": 3,
+          "origin": "upstream_problem_example"
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "expected": 0,
+          "origin": "upstream_problem_example"
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "expected": 0,
+          "origin": "codex_independent_contract_cases"
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                0
+              ]
+            ]
+          ],
+          "expected": 2,
+          "origin": "codex_independent_contract_cases"
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                1
+              ]
+            ]
+          ],
+          "expected": 0,
+          "origin": "codex_independent_contract_cases"
+        }
+      ],
+      "status": "passed",
+      "passed_cases": 6,
+      "total_cases": 6,
+      "case_results": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": "doocs-leetcode-3822",
+      "status": "unsupported_adapter",
+      "reason": "设计类需要独立适配器，不属于57条主接口修复清单"
+    }
+  ]
+}

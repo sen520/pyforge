@@ -128,7 +128,12 @@ def prepare(row, question):
     result['answer_sha256'] = digest(row['messages'][-1]['content'].encode())
     result['title'] = question['title']
     try:
-        tree = ast.parse(question['interface'])
+        # 审计实际用于训练的接口，历史题面目录可能保留修复前接口。
+        blocks = re.findall(r'接口：\n```python\n(.*?)\n```', row['messages'][1]['content'], re.S)
+        if len(blocks) != 1:
+            raise ValueError('训练题面缺少唯一接口块')
+        annotation = blocks[0]
+        tree = ast.parse(annotation)
         cls = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == 'Solution')
         methods = [n for n in cls.body if isinstance(n, ast.FunctionDef) and not n.name.startswith('_')]
         if len(methods) != 1:
@@ -139,8 +144,7 @@ def prepare(row, question):
         cases = examples(question['description'], parameters)
         cases += [{'args': a, 'expected': b, 'origin': 'codex_independent_contract_cases'} for a,b in CASES.get(row['problem_id'], [])]
         # 原地修改/链表/树/交互题需另写适配器，绝不当作答案错误。
-        annotation = question['interface']
-        if any(name in annotation for name in ('ListNode', 'TreeNode', 'Node', 'Iterator', 'MountainArray', 'NestedInteger')):
+        if any(name in annotation for name in ('ListNode', 'TreeNode', 'Node', 'Iterator', 'MountainArray', 'NestedInteger', 'BigArray')):
             raise ValueError('外部对象接口尚未适配')
         if not cases or any(c['expected'] is None for c in cases) and row['problem_id'] not in COMPARATORS:
             raise ValueError('没有可直接检查的返回值示例')

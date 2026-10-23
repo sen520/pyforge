@@ -68,7 +68,17 @@ def extract_problem(text):
     return {"problem_id": int(title.group(1)), "title": title.group(2), "problem_url": title.group(3),
             "difficulty": difficulty.group(1).strip() if difficulty else "未知",
             "tags": re.findall(r"-\s*(.+)", tags.group(1)) if tags else [],
-            "description": plain, "interface": signatures[0], "contains_images": "<img" in description.group(1)}
+            "description": plain,
+            "interface": next((s for s in signatures if s.startswith("class Solution:")), signatures[0]),
+            "contains_images": "<img" in description.group(1)}
+
+
+def replace_interface(prompt, old, new):
+    """只替换接口代码块，避免题面和答案逻辑进入本次修复。"""
+    marker = "接口：\n```python\n" + old + "\n```"
+    if prompt.count(marker) != 1:
+        raise ValueError("题面必须有唯一接口块")
+    return prompt.replace(marker, "接口：\n```python\n" + new + "\n```", 1)
 
 
 def build_validation(source, destination, overlap_path):

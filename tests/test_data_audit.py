@@ -3,10 +3,19 @@ from pathlib import Path
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from audit_training_data import CHECKER, examples, literal, sample_rows
+from audit_training_data import CHECKER, examples, literal, prepare, sample_rows
 
 
 class DataAuditTests(unittest.TestCase):
+    def test_audit_uses_training_prompt_and_rejects_unadapted_big_array(self):
+        row = {'id':'fixture', 'split':'train', 'difficulty':'easy', 'problem_id':0,
+               'source_url':'fixture', 'source_revision':'fixture',
+               'messages':[{}, {'content':'接口：\n```python\nclass Solution:\n    def f(self, x): ...\n```'}, {'content':'answer'}]}
+        question = {'title':'fixture', 'interface':'class WrongHelper: pass', 'description':'输入：x = 1\n输出：1'}
+        self.assertEqual(prepare(row, question)['status'], 'ready')
+        row['messages'][1]['content'] = row['messages'][1]['content'].replace('x):', "x: 'BigArray'):")
+        self.assertEqual(prepare(row, question)['status'], 'unsupported_adapter')
+
     def test_fixed_strata_and_reject_test_split(self):
         rows = [{'id': str(i), 'split': 'train' if i < 80 else 'validation',
                  'difficulty': 'easy' if i % 2 else 'hard'} for i in range(100)]

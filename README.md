@@ -39,6 +39,8 @@ hf download Qwen/Qwen2.5-Coder-1.5B-Instruct --cache-dir D:/sen/pyforge/models/h
 
 新增 2,449 条来自 doocs 既有 Python 参考答案，保留归属与许可，已做语法、静态依赖和完整对话长度检查，**未逐题执行验证**。另保留原有 90 条训练、5 条验证的已执行 Codex 数据；旧 5 条已分析测试题存档在 datasets/archive/codex_v1/。
 
+已完成 200 题抽样审计：189 题通过、11 题未适配；另修复训练/验证中 57 条题面主接口缺失，答案和划分不变。当前文件哈希见 datasets/metadata/current_manifest.json，原始构建清单保留。详见[训练数据审计](docs/训练数据审计.md)。
+
 另有独立的 20 道算法题、100 个本地用例，排除在这次新增训练划分外。完整的 3,422 题历史题面库已部分用于训练，不能整体再算独立评估。见[数据集说明](datasets/数据集说明.md)与[训练数据扩充说明](docs/训练数据扩充说明.md)。
 
 ## 训练与验证
@@ -79,7 +81,14 @@ python scripts/plot_training.py outputs/train-doocs-001 --style trend --window 2
 推荐用一条命令完成“同一 20 题分别发给基础模型与微调模型 → 相同 Docker 测试 → 逐题表格”：
 
 ```powershell
-pyforge benchmark --run outputs/train-doocs-001 --output outputs/benchmark-001
+pyforge benchmark --run outputs/train-doocs-002 --output outputs/benchmark-002
+```
+
+上例用于用当前修复后数据新训练的运行。旧 train-doocs-001 绑定修复前的数据哈希，评估前重建旧数据到独立目录（目录已存在则复用），再显式指定 --data：
+
+```powershell
+python scripts/repair_training_interfaces.py --restore --output outputs/data-before-interface-repair
+pyforge benchmark --run outputs/train-doocs-001 --data outputs/data-before-interface-repair --output outputs/benchmark-001
 ```
 
 默认离线加载项目模型缓存，生成上限 1024 token，执行超时每题 10 秒。Docker Desktop 与 python:3.12-slim 镜像必须已准备好；先自检，再开始耗时生成。基础模型指未加载本次 LoRA 的原始模型。两次生成在独立进程中顺序执行，避免同时占用 GPU。
@@ -97,7 +106,7 @@ Docker Desktop 需已启动并使用 Linux 容器。预测只读取 prompt，不
 
 ```powershell
 docker pull python:3.12-slim
-python scripts/predict_eval.py --run outputs/train-doocs-001 --output outputs/doocs_finetuned_predictions_v2.jsonl
+python scripts/predict_eval.py --run outputs/train-doocs-001 --data outputs/data-before-interface-repair --output outputs/doocs_finetuned_predictions_v2.jsonl
 pyforge evaluate --suite datasets/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions outputs/doocs_finetuned_predictions_v2.jsonl --report outputs/doocs_finetuned_report_v2.json --timeout 10
 Get-Content outputs/doocs_finetuned_report_v2.json
 ```
@@ -105,7 +114,7 @@ Get-Content outputs/doocs_finetuned_report_v2.json
 基础模型对比保持同样参数，增加 --base 并换文件名：
 
 ```powershell
-python scripts/predict_eval.py --run outputs/train-doocs-001 --base --output outputs/doocs_base_predictions_v2.jsonl
+python scripts/predict_eval.py --run outputs/train-doocs-001 --data outputs/data-before-interface-repair --base --output outputs/doocs_base_predictions_v2.jsonl
 pyforge evaluate --suite datasets/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions outputs/doocs_base_predictions_v2.jsonl --report outputs/doocs_base_report_v2.json --timeout 10
 ```
 

@@ -14,7 +14,7 @@ import sys
 
 from pyforge.data import read_records, split_records
 from pyforge.encoding import encode_record
-from pyforge.leetcode import extract_problem
+from pyforge.leetcode import extract_problem, replace_interface
 from pyforge.paths import MODEL_CACHE_DIR
 from pyforge.training import configure_hub_runtime, resolve_snapshot
 
@@ -113,7 +113,9 @@ def build(source, output, legacy, max_length=2048):
             raw = path.read_text(encoding='utf-8')
             if hashlib.sha256(raw.encode()).hexdigest() != question['source_sha256']:
                 raise ValueError('题面来源哈希变化')
-            code = answer_from_readme(raw, question['interface'])
+            interface = extract_problem(raw)['interface']
+            prompt = replace_interface(question['prompt'], question['interface'], interface)
+            code = answer_from_readme(raw, interface)
             canonical = ast.dump(ast.parse(code), include_attributes=False)
             code_hash = hashlib.sha256(canonical.encode()).hexdigest()
             group = code_groups.setdefault(code_hash, question['group_id'])
@@ -129,7 +131,7 @@ def build(source, output, legacy, max_length=2048):
                 'verification': {'syntax': True, 'dependency_static': True, 'execution': False, 'human_review': False},
                 'messages': [
                     {'role': 'system', 'content': '你是 Python 编程助手。遵守接口与约束，用简短说明和完整代码回答。'},
-                    {'role': 'user', 'content': question['prompt']},
+                    {'role': 'user', 'content': prompt},
                     {'role': 'assistant', 'content': '```python\n' + code + '```'}]}
             value = encode_record(row, tokenizer, max_length)
             if value is None:
