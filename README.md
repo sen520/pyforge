@@ -1,8 +1,30 @@
 # PyForge
 
-面向个人 NVIDIA GPU 的 Python 编程助手微调项目，使用 Python 3.12、Transformers Trainer、PEFT 和 bitsandbytes 进行 SFT + QLoRA。当前工作目录为 `E:\code\github\pyforge`，RTX 4080 SUPER（16 GB）用于 1.5B 正式训练；RTX 4060 保留用于小规模测试。
+面向个人 NVIDIA GPU 的 SFT + QLoRA 微调项目，使用 Python 3.12、Transformers Trainer、PEFT 和 bitsandbytes。当前任务是中文需求转 JSON 数据清洗配置，保留此前的 Python/LeetCode 实验。工作目录为 `E:\code\github\pyforge`，RTX 4080 SUPER（16 GB）用于 1.5B 训练，RTX 4060 用于小规模测试。
 
 当前已在原生 Windows、RTX 4060 上完成 0.5B 模型的 2 轮训练（1,146 步），支持离线加载、完整恢复、最佳检查点选择、推理、批量评估预测、日志绘图和轻量实验归档。训练完成不代表代码正确率达标。
+
+RTX 4080 SUPER 的 1.5B 数据清洗训练、验证/测试预测和 Excel 导出也已在本地跑通。当前数据为训练 1,000 条、验证 200 条、测试 200 条；相关本地产物在 outputs/，不随 Git 提交。
+
+## 当前任务：数据清洗配置
+
+已完成 `outputs/data-cleaning-002` 训练时，一条命令运行验证、测试、基础/微调模型对比和 Excel 导出：
+
+```powershell
+Set-Location E:\code\github\pyforge
+.\.venv\Scripts\Activate.ps1
+python scripts/benchmark_data_cleaning.py --run outputs/data-cleaning-002 --output outputs/data-cleaning-comparison-001
+```
+
+已有 `outputs/data-cleaning-eval-002` 中的四份完整预测时，可以直接复用，不再加载模型：
+
+```powershell
+python scripts/benchmark_data_cleaning.py --run outputs/data-cleaning-002 --reuse-predictions outputs/data-cleaning-eval-002 --output outputs/data-cleaning-comparison-002
+```
+
+输出目录必须是新目录，已存在时更换编号。Excel 为输出目录中的 `模型效果对比.xlsx`，包含效果汇总、验证集对比和测试集对比，可查看完整题面、参考答案、两边原始回答和改善/退步。严格评分与仅去掉代码块外壳的诊断评分分开显示，不能将格式合格率或配置匹配率当作执行正确率。
+
+若尚未训练，先按[数据清洗数据集指南](docs/数据清洗数据集指南.md)完成环境准备与训练，再执行上面的评估。该任务全程离线、无需 Docker；Excel 使用本机 Codex 附带的 Node.js/artifact-tool。训练、预测和报告由你手动启动，完整命令与故障处理见指南。
 
 ## 安装环境
 
@@ -21,7 +43,7 @@ python -m unittest discover -s tests -v
 
 ```powershell
 python -m pip install "huggingface_hub>=0.34,<1"
-# 当前 4080 SUPER：1.5B，训练配置尚未完成实测验证
+# 当前 4080 SUPER：1.5B，已完成本地数据清洗训练验证
 hf download Qwen/Qwen2.5-Coder-1.5B-Instruct --cache-dir E:/code/github/pyforge/models/hub
 # 可选：4060 小规模测试使用 0.5B
 hf download Qwen/Qwen2.5-Coder-0.5B-Instruct --cache-dir E:/code/github/pyforge/models/hub
@@ -33,6 +55,13 @@ hf download Qwen/Qwen2.5-Coder-0.5B-Instruct --cache-dir E:/code/github/pyforge/
 
 数据按任务整理：本轮旧数据已迁移到 `datasets/leetcode/`；新方向目录为 `datasets/data_cleaning/`，用于模型直接编写的新任务数据，详见[数据清洗数据集指南](docs/数据清洗数据集指南.md)。目录总览见[数据集目录](datasets/数据集说明.md)。历史 JSON 清单与实验报告保留原路径及哈希。
 
+| 当前数据清洗集合 | 条数 | 用途 |
+| --- | ---: | --- |
+| datasets/data_cleaning/train.jsonl | 1,000 | 更新参数 |
+| datasets/data_cleaning/validation.jsonl | 200 | 验证损失和开发评估 |
+| datasets/data_cleaning/test.jsonl | 200 | 最终配置预测评估 |
+
+完整作者原稿仍各 1,000 条，缩减前版本保留在 datasets/data_cleaning/archive/full_v1/。下表与后续算法训练命令属于保留的 LeetCode 流程，不与当前任务混用。
 
 | 文件 | 条数 | 用途 |
 | --- | ---: | --- |
@@ -46,7 +75,7 @@ hf download Qwen/Qwen2.5-Coder-0.5B-Instruct --cache-dir E:/code/github/pyforge/
 
 另有独立的 20 道算法题、100 个本地用例，排除在这次新增训练划分外。完整的 3,422 题历史题面库已部分用于训练，不能整体再算独立评估。见[数据集说明](datasets/leetcode/数据集说明.md)与[训练数据扩充说明](docs/训练数据扩充说明.md)。
 
-## 训练与验证
+## LeetCode 训练与验证
 
 ```powershell
 pyforge validate datasets/leetcode/train.jsonl
@@ -79,7 +108,7 @@ python scripts/plot_training.py outputs/train-4080-001 --style trend --window 20
 
 图片默认保存到运行目录 plots/。趋势图蓝线为 20 点分段均值，红线为原始验证损失，空心菱形为不足一个窗口的均值；不能用它代替代码执行通过率。
 
-## 新模型的独立算法评估
+## LeetCode 模型的独立算法评估
 
 推荐用一条命令完成“同一 20 题分别发给基础模型与微调模型 → 相同 Docker 测试 → 逐题表格”：
 
