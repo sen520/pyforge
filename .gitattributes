@@ -4,3 +4,7 @@ datasets/** -text
 reports/** -text
 # 审计清单记录脚本的原始 SHA256，跨平台检出时固定换行。
 scripts/audit_training_data.py text eol=lf
+scripts/build_data_cleaning.py text eol=lf
+scripts/check_data_cleaning_cases.py text eol=lf
+scripts/score_data_cleaning.py text eol=lf
+src/pyforge/data_cleaning.py text eol=lf

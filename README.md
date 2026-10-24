@@ -31,7 +31,7 @@ hf download Qwen/Qwen2.5-Coder-0.5B-Instruct --cache-dir E:/code/github/pyforge/
 
 ## 当前数据
 
-数据按任务整理：本轮旧数据已迁移到 `datasets/leetcode/`；新方向目录为 `datasets/data_cleaning/`，当前仅建立目录、尚无训练样本。目录总览见[数据集目录](datasets/数据集说明.md)。历史 JSON 清单与实验报告保留原路径及哈希。
+数据按任务整理：本轮旧数据已迁移到 `datasets/leetcode/`；新方向目录为 `datasets/data_cleaning/`，用于模型直接编写的新任务数据，详见[数据清洗数据集指南](docs/数据清洗数据集指南.md)。目录总览见[数据集目录](datasets/数据集说明.md)。历史 JSON 清单与实验报告保留原路径及哈希。
 
 
 | 文件 | 条数 | 用途 |

@@ -1,0 +1,843 @@
+{
+  "reviewer": "Codex primary agent",
+  "human_review": false,
+  "method": "主代理实际读取下列需求与答案，核对列名、阈值、比较类型、操作顺序、去重与空值策略。验证集紧凑原稿与JSONL逐条比对一致；排序歧义由作者逐条澄清后复读相关样本。不是由脚本猜测语义。",
+  "scope": "仅列出的样本；不外推为全部3000条语义正确",
+  "results": [
+    {
+      "split": "train",
+      "source_line": 1,
+      "authored_row_sha256": "49dbadb36132d5c74b06131f1b3923b32bf86dd82fc0f187116c419e7f62eae9",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 16,
+      "authored_row_sha256": "3dc56f67800079faf3bd0cd668484876205c1d025e0ecaf358808dc41b44bf69",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 31,
+      "authored_row_sha256": "1b81264e085fef0e1b99492978b328295d5ee9706f90b8c7b609bd96b3c6dd3d",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 46,
+      "authored_row_sha256": "19c93b141224cef7ad30a1059c1bce6c8e0ea14a89e5f0e5497c646a6674e034",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 61,
+      "authored_row_sha256": "d2c3fe9ee6bcbafc317161263e2286e79dc2e37ed9d8266c02c46fa63c9e8337",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 76,
+      "authored_row_sha256": "1366fa20b170718d8794f4c236220604337414916243cc6814fa44fa87cebbd3",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 91,
+      "authored_row_sha256": "3d5efe41469ec622bb4f77d027b8e58480bdf6d6fa664446c0e466af7b936bd4",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 106,
+      "authored_row_sha256": "5e34b63c8aec46c68182ab21dd1caea27cb33bb9a21f7b6795cd97a262b8dcf3",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 121,
+      "authored_row_sha256": "b5c6d8b204235ff3eb7061bf9c8ea92937d5dc28937790145cc6487b62f181d8",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 136,
+      "authored_row_sha256": "932ffe86ae53315a4f97651682995d25fd58e581dc63e384fd517455f0fe61ee",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 151,
+      "authored_row_sha256": "c25152811163c182d78b13d6326e99ba3d1e6463e3919f74a6913bfd5be91a22",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 166,
+      "authored_row_sha256": "f0268716ce50b529b9641fee2b2ca8bb0ed62e0b78ae95e9cddb6cfd159d7b63",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 181,
+      "authored_row_sha256": "311d037fb8c1e233e2d7e73d95f4a6d4a476196da286e09c6e2e2c3b9cadbe77",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 196,
+      "authored_row_sha256": "e202bb8309b87167350b8f860d04092feb812804e33951cd0f5ade8d289c104c",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 211,
+      "authored_row_sha256": "d7900c9f90219c15472cf50f752bf025ebe87abafc1c19a6cbc0f1047664ca63",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 226,
+      "authored_row_sha256": "4a94122365f49d2b46e80441f89d57377e894b43eeb52c0db290f9bc588feab5",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 241,
+      "authored_row_sha256": "2ba3e50aad195b393cb3e5702868bc4b23b0c267df4a61d9d41584af8fd493ae",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 256,
+      "authored_row_sha256": "ea8eb9323cfe0ad24c2658880910393cd04e6e468aed34687e97eddbba39358c",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 271,
+      "authored_row_sha256": "e2d312a5a70039a5be33c1153fc339dad06aa18a1dda1b2cfa850e4c2ca4e7ef",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 286,
+      "authored_row_sha256": "906b3895fb5bd11c7bb8c55228af5c6ea898ae66962338ad768f0ad6918e12f0",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 301,
+      "authored_row_sha256": "4e09c1c13de46dc683eef27fa9bdfcd6e869acd7f7caa68285dd69b353723748",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 331,
+      "authored_row_sha256": "606e116562db22cab918dcf846cf02df1a32975909bd454482aabfc0ac74589c",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 361,
+      "authored_row_sha256": "2abe328b4524a44e3cc99ec02bcdfc80f80c61d7cf323988d24159a4513961c6",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 391,
+      "authored_row_sha256": "b2537492c95720ae5fcea2122358287203772077d2689f7f8066017ebc3273fe",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 421,
+      "authored_row_sha256": "556e65ce15e7f52be9f84854cea89e23908983732d085a196f443881f0daa01a",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 451,
+      "authored_row_sha256": "27cab6ecf690881d2a7e98c2f69f55121d84ca07216098610b51e9181372b387",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 481,
+      "authored_row_sha256": "e37bb983390f97168b4d80b655bf7cb91cc95a97f9e92b91491abf9ab871b46d",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 511,
+      "authored_row_sha256": "006b277648425231604534defd9557c364a436886d1cd145bdff909bb831eb83",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 541,
+      "authored_row_sha256": "b5189de1144d12a7a0453cbd3c3dc2309542f9c991289697045f789dead70244",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 571,
+      "authored_row_sha256": "b8b70f7e33fa2a36386c8230b578e53ec6b6711726cc8855f89906986ecc5bfa",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 601,
+      "authored_row_sha256": "d985786b4155feba8d18526c43f06ac0a1819466fc66b03d01ec0a29ff5bbefe",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 631,
+      "authored_row_sha256": "c1b9c2868fd6f150e7443ae59583d016ec43e1f40c5eaf47f7c120f4a6568d45",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 661,
+      "authored_row_sha256": "f995a57352797b2ab09728d18a89d6c7ea98f3e90be419316b7d5c887888c9f1",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 691,
+      "authored_row_sha256": "61746dda7fb1e6aa8d48a50d03f3f345b7198e091f2da2e7d8887838ce001bc3",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 721,
+      "authored_row_sha256": "a07a392c67afbc9cd19a7b0e953dc3247535da4130711d5b7f52db34749d5641",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 761,
+      "authored_row_sha256": "314f7885e011e309e7d4af30b8bb690605463415646a8963046ad465b9657788",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 801,
+      "authored_row_sha256": "6990d0decbc39cb2ff7c3248a2a4aef30206122f46b26e89fe0e5c4f0449da2e",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 841,
+      "authored_row_sha256": "9e346953bc15d310677f4ae181d7df64253511ef976a5d78bd7538672c1342dd",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 881,
+      "authored_row_sha256": "f47ef917a72781d225fb293cca71306bc7b554faa30b7b97145b1417b55e60fc",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 921,
+      "authored_row_sha256": "fa4af881dc4685ba9aa8b301c65c7d3c865b49e4b9b8e930a47707feeffa6aed",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 941,
+      "authored_row_sha256": "3049df0ab0ef6bbfed60f371106aef387cf087f8ecbb952ef3c80449cc30f038",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 961,
+      "authored_row_sha256": "c94e347f4533e89745e26b89f3327c9b8dc1d0eb68d4a46d6c2d080f86c93c13",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 981,
+      "authored_row_sha256": "c17996d8af067e956a1a2e2e8bab8ce985594edc5dc5cd980121c8937ad0b1be",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "train",
+      "source_line": 1000,
+      "authored_row_sha256": "0efd7dd4cc1c895aadd47235907a5d22476edd589416d6a2e540d4789525c3df",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 1,
+      "authored_row_sha256": "79759dc944055bba2e1d17d9ebc6fad1a784f9a1e3633b14fb3971ab4b5c4c71",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 16,
+      "authored_row_sha256": "19a6faa970cd4092d217c77636ddc5ae2713ab014a7ef98ea465f0e93b180543",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 31,
+      "authored_row_sha256": "26e3a178c64dd2d3deb57a2037759baed442b6618ce19f5bf0770619884cbb02",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 46,
+      "authored_row_sha256": "6c213e0c10cdcdc5135365c1a80624789c8df58ea179bee418881cb18c4bcacd",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 61,
+      "authored_row_sha256": "d14f013e6bbdcb9a2070509b4cf71b0de6b86b25ee4c88d8e746edeabe5f0147",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 76,
+      "authored_row_sha256": "f39ce444b5c23c5c532f0e9362c125600d494723bc95f19fd726f5ab9aa37009",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 91,
+      "authored_row_sha256": "c581f42d66a4a7f76c691fcf1b9911d438c14f3f68246d395c95a45c7bb79557",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 106,
+      "authored_row_sha256": "23a7356b7deedd429506d13fe2ed19b7b8186ab1e9e2465e4e31e45814e1af16",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 121,
+      "authored_row_sha256": "efa146bc964a957d9bf90f3ed774c7b23e72962bc7333f01adc1825a073f5b88",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 136,
+      "authored_row_sha256": "185426b9cd1a47a7e4ed32861a15cec417df088a831acc7fa20d67480da804cd",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 151,
+      "authored_row_sha256": "61c32b128f1c27aee83e5e530fe0744a5bc522197b34aba2ed34165ec01b889e",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 155,
+      "authored_row_sha256": "aed0b09a8c0436d2084668e2c188a12b48491f79e5f1e4300584c88a2786639f",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 166,
+      "authored_row_sha256": "9af76c5249e4d00690f4f527d712930540471bd9714cbbd0cf96eb128d18d2cc",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 181,
+      "authored_row_sha256": "0d141b7bcf9cd27c361232817ac4e0d72cdec4c095d6608d660fa34bf39d7222",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 196,
+      "authored_row_sha256": "c986a498f6412af81917a348f69ab91fbbaab1acf63fe84dca59a99e0bae5195",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 211,
+      "authored_row_sha256": "998667491092d983919ca766e7615c891b771ed761b81fc036391c2bb626ea2d",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 226,
+      "authored_row_sha256": "d7ac4a5eddf9b46638a39b70e8be4128e8334f56d7a6b0f1f426f7b0b5073065",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 241,
+      "authored_row_sha256": "7df3ddd206e9dff36411ced88912875139e2286b0a01e6fa8d3ede9ea808b4a0",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 256,
+      "authored_row_sha256": "33cf81d590a198f969b64f941c04bf11e4173cf52832e304d19529bb9326a3dc",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 271,
+      "authored_row_sha256": "720602c28af21f4fe96229e3dd947ff6cfcc0d45af4872d54f684c4d117fd125",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 286,
+      "authored_row_sha256": "33ab5c55386f1afcc534c9035d512988d701cdc6dedf792ce8ca3bbf68b4278e",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 301,
+      "authored_row_sha256": "7aa16ac1a6e01e49ae5e5a4a76aff3052be1cb8544a56727f31583dabcc08ea2",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 331,
+      "authored_row_sha256": "a3c31358dabb02a4797e20dd9c687702d91c72c21b4eafbefcc7b6d870c886a5",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 361,
+      "authored_row_sha256": "07154c6a303e9122a0b1d9a98c939b21abe60505ad2cecb784b263570f6e83cd",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 385,
+      "authored_row_sha256": "6d56e96654e104d1300ea595b1dc918ad3c6188391e4117268a2de6bb661d56b",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 391,
+      "authored_row_sha256": "602d7655b00e188d20789aac7630b47cfbd605c839a4e29cef4c3f00752d85a5",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 421,
+      "authored_row_sha256": "a5a350d4e8741cd9ff2ae08132c3d6afa855a0096fa76c5260ef996523d2c538",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 451,
+      "authored_row_sha256": "54fb87f775ccdd7c245b75e441b081526a85c2711e82da164bd9872dd40ea96f",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 481,
+      "authored_row_sha256": "fcacf6da0e5996c050ca576a18a89aeeb3158b5e525749125b87ff90dd4a0700",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 511,
+      "authored_row_sha256": "0e48ab900e68cbb32019c0fa96d947962224e3d3687efaf76edb8565caa7ada0",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 541,
+      "authored_row_sha256": "084484dff1fb2a2b66a96313b11f0d09670d0505f1647624bc628563eb9f1396",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 571,
+      "authored_row_sha256": "2131cacf09b97548aa6f2479e62dc112026837cc63a7887b74e1c737f9c665bb",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 585,
+      "authored_row_sha256": "efa7edf50ec7e51b67fa3f0541cdf89b01ba895e5ac116914c1ca4dcde4daabb",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 601,
+      "authored_row_sha256": "29845dd55c0a10973697faaaf1c1b7822dcaffcffbdf96fc977b24a5f05dfe3b",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 631,
+      "authored_row_sha256": "91b9a2b3e667ef5cb752978c6703de763cc330335df6eeece3c2b594139fb956",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 661,
+      "authored_row_sha256": "940accf3d9efeaf7224c31de17907a6a5e1ed30106cf554b47ae6e872e05b414",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 691,
+      "authored_row_sha256": "97e34a1bb3bf1e9e3085aa25125eed7860cf0d5fe9e3ade77a18853fc973e7ed",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 721,
+      "authored_row_sha256": "b22c10c4f9e208e6808df969ba54e401bea5b69b49ba0ba8a923a45c3a2db899",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 761,
+      "authored_row_sha256": "28f2672947d897809a90efb45272e3430971e532fc4dfb639e26c2f7a9d9ce79",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 785,
+      "authored_row_sha256": "9da9bc60bb58d42bd050bc0d032ea3985717eb03b9d70aa4a844cd7cb2e04e86",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 801,
+      "authored_row_sha256": "b90dd6af3d08ff7e501e43794fa5c9367984cadee1d2c8898937d0cf66d7c424",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 841,
+      "authored_row_sha256": "bd9c342e6bc30ebf272accdc395a85002acb90f3ca9fa86e74579c4de78ba76e",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 881,
+      "authored_row_sha256": "9a9a8e118427fc7b6e20a79426a77e794d17cd6fe135c8b99a0a22276cac8c45",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 921,
+      "authored_row_sha256": "06d62a590708173b673d2e10d8ccd6831608480e4077b963bae22cadd161f1a7",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 961,
+      "authored_row_sha256": "c532d53aa17f6a89aac6b872a73a2d48f5569155cd49b7cbdae4dd015be1ce7d",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 981,
+      "authored_row_sha256": "747a331cabf10cc056bc5770f33f1e666f17141040986c39a0056974f72c0865",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "test",
+      "source_line": 1000,
+      "authored_row_sha256": "51df3b0b5d16006b331a7667c3b5c111887b6d635e5abdfe7aead6fbb00f5db4",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 1,
+      "authored_row_sha256": "b4e341b7493c80bd02ca74d5455a6fd687eda899e7f8ccfcbaa8f6684d42052f",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 31,
+      "authored_row_sha256": "63306703149ebcd261b21b7d9d1bb266e656f14c545f550132a3c88d3de5d294",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 61,
+      "authored_row_sha256": "2d0d47f2b323acb0006f5659ce2615d6cd6da15aaf669fe8a3e5d08acfa076c0",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 73,
+      "authored_row_sha256": "f9e33be1de3aa83395ea088e8615ba74c572e8dd49f8e75295ab1fc1822f3ab3",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 78,
+      "authored_row_sha256": "c44687e7080d81914b131f131d6dcf4532204a7f4c5bb25d8d2b767073ab123a",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 91,
+      "authored_row_sha256": "03936bb708365586669ba2b77ebc937b7f957907261955300dbe39477345ac1c",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 121,
+      "authored_row_sha256": "8d4e0f2906b2be43791189e038831077804ee22a12f67a5d84443ba794f17f5b",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 151,
+      "authored_row_sha256": "406cf34fa0ed13775f164bed92b674382a6089d9d07669c3c5836cc80717374e",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 173,
+      "authored_row_sha256": "869c46948f43da74aaa33d065410ae5454611106bd7429170068b87b80a8d091",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 181,
+      "authored_row_sha256": "b0c3a3ccb1bbe1980513d934a76b98db6875966ebba5b28e2de8d90da6dd1e7b",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 211,
+      "authored_row_sha256": "c3142ce53670df76bec6a967d331ab6af3ca6859144f3492a93bef8923090603",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 241,
+      "authored_row_sha256": "7fb43188b6ac6c73317a4e818d01b14667ea1caac9d3197a5a198e7cae22e0cc",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 271,
+      "authored_row_sha256": "f49919083705efde20d26973690a0bb4d042e802dcbe432932652f6536932857",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 273,
+      "authored_row_sha256": "1dd68a05281a088c109f2d6243482cf10eb829ff192e126de0729ddcd292e72d",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 301,
+      "authored_row_sha256": "665ce8f26b54e5fafe51605f5dc86c745d5aef7f860545694eb455dd546fa4f9",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 331,
+      "authored_row_sha256": "854e0146d4ba77e3fcfbe317ebb7a36373dd3ec5c249f3f4f6c3d41925f0fd8b",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 361,
+      "authored_row_sha256": "959960cb544111baa5b4c46fe40062638218104a6ee90f70e5aa4b0a753d3ad0",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 391,
+      "authored_row_sha256": "6e98681a14e1740e9fa05737e2d62971d060fd164265b6a5d1fbe271ead6fa74",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 421,
+      "authored_row_sha256": "882b3e47db8ca45cc8b0942d72eb43d34ea59495de5b777c63b48aa2c18ae658",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 451,
+      "authored_row_sha256": "d3f06ebd6ee82ab7d5a6b46a1c54c38bd847edac336407df536f627105ee620e",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 473,
+      "authored_row_sha256": "946836bf1bafc2f2ef1be5cc0e7ddba367b8cac80d7069640e8ac530b099a90c",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 481,
+      "authored_row_sha256": "2db5a0a880f6d1199fcc0e3229fbc44ad2a6e1f0241aa5d6cddef4f612e028b8",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 511,
+      "authored_row_sha256": "78f9a71c59dd931c5534e3926c526752a080a76b4febc5e432b887997f2c8627",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 541,
+      "authored_row_sha256": "5561c282b72ceda0c44b9f02e254b2a0711f8ad963fe8fe566bbb377c2a53bf4",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 571,
+      "authored_row_sha256": "585524a2e53a94d0b74d09b38fd99bab84aaec5e8eafa7383fa7dc18e97bb13a",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 601,
+      "authored_row_sha256": "0f232beba246aa2dc3cb6d915a193a1c099b161a2b93c37591f4d62d0f84b91e",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 631,
+      "authored_row_sha256": "4a5ef90129cce567a6089daef26c0c91d5d9ed27adaaa0892983e885aa8d5d66",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 661,
+      "authored_row_sha256": "41e68ec961966392881d560436e334fb5807bc72c0b302a3f6fda386ede1481b",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 673,
+      "authored_row_sha256": "f5bd7e67d949dd75efe8fa37f8f31eb61cf977a49e8e7ed07d74800d703061dd",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 691,
+      "authored_row_sha256": "2a83e16fd51eb2a7dab8d94331833d4f1680424cb3b854cf7007f00bc6d5b32a",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 701,
+      "authored_row_sha256": "4d6931ff83d8a57099a11a722056abd3ebc8d4baaa92c73e0613e0f592a35465",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 721,
+      "authored_row_sha256": "e71426b83c325ccc3c0ca2dcf9409ae8cae308cb702d39e8048d440457ae5c12",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 731,
+      "authored_row_sha256": "58991311ce4ea926773ffe0dd6cae21be5a8b8823657d7ae4b370b2960b15b8b",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 761,
+      "authored_row_sha256": "c18517f46af0d485d0093765f374c28007aeda3dba853dc6c852102d460dfd77",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 771,
+      "authored_row_sha256": "82e6e5f7aeda7cab6d3ae5bfa00d2df5a994704e61d88c8921e72d8b5b45ec86",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 773,
+      "authored_row_sha256": "846f137de6cf38ed042c3ffdf475a157f0189afc6ff96e413b50d9b89e2926d7",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 791,
+      "authored_row_sha256": "5ddfa3e895f8ba6c0a3c059b44dfbe65a2caf73d105d312edd73cebaa6e26705",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 801,
+      "authored_row_sha256": "a80c65d6a9a4802f4ce1e69d7a27ccd8626f400662e318bfa64302a92d706220",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 811,
+      "authored_row_sha256": "d13f356cdf1bb912f8c5142e0648a179ea602f3efe34444187d80ad161d58888",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 841,
+      "authored_row_sha256": "b27ab3c33100d83d5e151c207f385b4f5082fbeae7759b8f921783f89575246c",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 851,
+      "authored_row_sha256": "0656eb12b210319c189566734c02c63d8dc2b643a197d8408070e8fe2eeadc48",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 881,
+      "authored_row_sha256": "d76d7c8113b08b772bdfc4a79afc958006d971c5207875b1451a53588a8e2a3f",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 891,
+      "authored_row_sha256": "c7c58364acaf992c82b7a3fc884cfa247d70e9806460891917ef70365f37cead",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 921,
+      "authored_row_sha256": "04f01f04bdecbab37ccc2e5b632bbd4afb7e861d1e0e53893f5218a962af5f39",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 931,
+      "authored_row_sha256": "4d83189e254a915948a6b4772f0ad574881430987897cec19399134d581504b9",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 961,
+      "authored_row_sha256": "704b983af2325c76fb1da7fb60e13e3151459561cacc62a1a3797848448d2e07",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 971,
+      "authored_row_sha256": "25f9796267a0d1731f0e4a12cad64be641db434694182a4c56cc96d0569facfd",
+      "codex_semantic_review": "consistent_on_read"
+    },
+    {
+      "split": "validation",
+      "source_line": 1000,
+      "authored_row_sha256": "b4b918892d192ae07b0480e102de51ba735de150b40e530c0a4e68d72e05c3c6",
+      "codex_semantic_review": "consistent_on_read"
+    }
+  ],
+  "reviewed_count": 139
+}
