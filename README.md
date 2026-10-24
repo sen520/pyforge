@@ -41,6 +41,22 @@ python scripts/benchmark_data_cleaning.py --run outputs/data-cleaning-002 --outp
 
 上面的脚本完成测试后，会自动继续验证集的微调和基础模型预测及评分，无需再执行一条验证命令。全部完成后生成 Excel，查看测试集与验证集各自的结果。训练过程中计算的验证 loss 与这里生成 JSON 答案的验证评分是两个指标。
 
+### 4. 使用训练好的模型
+
+使用示例位于 [src/pyforge/data_cleaning_example.py](src/pyforge/data_cleaning_example.py)。运行后加载基础模型及训练后的 LoRA，用中文需求生成 JSON 配置，再清洗内置的 5 行邮箱/积分数据：
+
+```powershell
+python -m pyforge.data_cleaning_example --run outputs/data-cleaning-002
+```
+
+只生成配置、不执行清洗：
+
+```powershell
+python -m pyforge.data_cleaning_example --run outputs/data-cleaning-002 --prompt '按“积分”降序排列。' --config-only
+```
+
+默认离线运行，仍需 CUDA 和本地模型缓存。支持通过 `--input-json` 读取自己的 JSON 对象数组，也可在 Python 中导入 `clean_rows()`；完整示例见[数据清洗数据集指南](docs/数据清洗数据集指南.md)。模型输出必须先通过配置校验，失败时停止，不自动修补或执行模型生成的 Python 代码。
+
 ### 已有预测时：跳过生成，只导出评分与 Excel
 
 已有 `outputs/data-cleaning-eval-002` 中的四份完整预测时，可以直接复用，不再加载模型：
