@@ -6,7 +6,11 @@
 
 RTX 4080 SUPER 的 1.5B 数据清洗训练、验证/测试预测和 Excel 导出也已在本地跑通。当前数据为训练 1,000 条、验证 200 条、测试 200 条；相关本地产物在 outputs/，不随 Git 提交。
 
-## 当前任务：数据清洗配置
+## 脚本使用：验证、测试与 Excel 模型对比
+
+入口脚本：[scripts/benchmark_data_cleaning.py](scripts/benchmark_data_cleaning.py)。在项目根目录运行，读取已训练好的数据清洗模型，不重新训练。
+
+### 完整运行验证集和测试集
 
 已完成 `outputs/data-cleaning-002` 训练时，一条命令运行验证、测试、基础/微调模型对比和 Excel 导出：
 
@@ -16,11 +20,27 @@ Set-Location E:\code\github\pyforge
 python scripts/benchmark_data_cleaning.py --run outputs/data-cleaning-002 --output outputs/data-cleaning-comparison-001
 ```
 
+执行顺序为验证集微调模型、验证集基础模型、测试集微调模型、测试集基础模型，各 200 条。每份预测分别计算严格评分和去代码块外壳的诊断评分，最后导出 Excel。
+
+### 复用已有预测，只生成评分与 Excel
+
 已有 `outputs/data-cleaning-eval-002` 中的四份完整预测时，可以直接复用，不再加载模型：
 
 ```powershell
 python scripts/benchmark_data_cleaning.py --run outputs/data-cleaning-002 --reuse-predictions outputs/data-cleaning-eval-002 --output outputs/data-cleaning-comparison-002
 ```
+
+### 参数和输出位置
+
+| 参数 | 用途 |
+| --- | --- |
+| `--run` | 已完成训练的运行目录，须含 run_manifest.json、run_status.json 和 adapter/ |
+| `--output` | 新的评估输出目录，不能已存在 |
+| `--reuse-predictions` | 可选；指定已有四份预测、生成清单与题面所在目录，跳过模型预测 |
+| `--data` | 可选；默认 datasets/data_cleaning |
+| `--max-new-tokens` | 可选；新预测默认 512，复用时沿用原参数 |
+
+完整运行示例生成 `outputs/data-cleaning-comparison-001/模型效果对比.xlsx`；复用示例生成 `outputs/data-cleaning-comparison-002/模型效果对比.xlsx`。同目录还包含 comparison.json、四份逐题评分和 pipeline_status.json。
 
 输出目录必须是新目录，已存在时更换编号。Excel 为输出目录中的 `模型效果对比.xlsx`，包含效果汇总、验证集对比和测试集对比，可查看完整题面、参考答案、两边原始回答和改善/退步。严格评分与仅去掉代码块外壳的诊断评分分开显示，不能将格式合格率或配置匹配率当作执行正确率。
 
