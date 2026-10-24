@@ -1,7 +1,7 @@
 """封装模型逐条编写的原稿；不生成、扩写或自动改写需求与答案。"""
 
 import argparse
-from collections import Counter
+from collections import Counter, defaultdict
 import hashlib
 import json
 from pathlib import Path
@@ -60,6 +60,43 @@ def load_authored(directory):
     return result
 
 
+def select_holdout(records, target=200):
+    """固定抽样：场景均分，每种操作序列至少保留一条；不改写样本。"""
+    if target <= 0 or target > len(records):
+        raise ValueError('留出集目标数量必须为正数且不超过原始数量')
+    groups = defaultdict(list)
+    for record in records:
+        groups[record['group_id']].append(record)
+    if target < len(groups):
+        raise ValueError('目标数量不足以覆盖全部场景')
+    chosen = set()
+    for index, group in enumerate(sorted(groups)):
+        quota = target // len(groups) + (index < target % len(groups))
+        members = groups[group]
+        if quota > len(members):
+            raise ValueError('场景样本不足以满足均分配额：' + group)
+        strata = defaultdict(list)
+        for record in members:
+            steps = json.loads(record['messages'][-1]['content'])['steps']
+            strata[tuple(step['op'] for step in steps)].append(record)
+        if quota < len(strata):
+            raise ValueError('场景配额不足以覆盖全部操作序列：' + group)
+        # 每层先保留一条，剩余名额按剩余容量用最大余数法分配。
+        remaining = quota - len(strata)
+        capacity = len(members) - len(strata)
+        extras = {key: remaining * (len(values) - 1) // capacity if capacity else 0
+                  for key, values in strata.items()}
+        priority = sorted(strata, key=lambda key: (
+            -(remaining * (len(strata[key]) - 1) % capacity if capacity else 0), key))
+        for key in priority[:remaining - sum(extras.values())]:
+            extras[key] += 1
+        for key, values in strata.items():
+            ordered = sorted(values, key=lambda row: hashlib.sha256(
+                ('data-cleaning-small-v1:42:' + row['id']).encode()).hexdigest())
+            chosen.update(row['id'] for row in ordered[:1 + extras[key]])
+    return [record for record in records if record['id'] in chosen]
+
+
 def build(directory, tokenizer=None, max_length=2048, check=False):
     directory = Path(directory)
     authored = load_authored(directory)
@@ -87,12 +124,20 @@ def build(directory, tokenizer=None, max_length=2048, check=False):
                     raise ValueError(f'{record["id"]}: 超过 {max_length} token，不静默过滤')
                 record['token_length'] = len(encoded['input_ids'])
             records.append(record)
-        outputs[split] = records
+        outputs[split] = records if split == 'train' else select_holdout(records)
 
     report = {
-        'version': 'data_cleaning_v1', 'author': 'Codex',
+        'version': 'data_cleaning_small_v1', 'author': 'Codex',
         'authoring_method': '模型在当前对话及获用户授权的三个子代理中逐条编写需求与答案；代码仅序列化与检查',
-        'external_model_api_calls': 0, 'minimum_per_split': 1000,
+        'external_model_api_calls': 0, 'authored_minimum_per_split': 1000,
+        'selection': {
+            'train': '保留完整训练集，不改写或重编号',
+            'holdout_count_per_split': 200,
+            'method': '场景均分，每场景40条；每种操作序列至少1条，剩余按层容量使用最大余数法；层内固定SHA256排序',
+            'seed': 'data-cleaning-small-v1:42',
+            'source_counts': {split: len(rows) for split, rows in authored.items()},
+            'full_dataset_archive': 'datasets/data_cleaning/archive/full_v1',
+        },
         'semantic_review': '作者逐条编写；自动格式/重复/列名/长度检查不能证明每条中文语义正确；抽查另见 semantic_review.json',
         'human_review': False, 'per_record_execution': False,
         'split_policy': '三个集合预先分配不同业务领域与场景族；未按条随机切分；不宣称已完成所有语义近似去重',
@@ -120,6 +165,8 @@ def build(directory, tokenizer=None, max_length=2048, check=False):
             'count': len(records), 'sha256': digest(path),
             'authored_source_sha256': digest(directory / 'sources' / (split + '_authored.jsonl')),
             'groups': len({r['group_id'] for r in records}),
+            'group_counts': dict(Counter(r['group_id'] for r in records)),
+            'selected_ids': [r['id'] for r in records],
             'operation_counts': dict(operation_counts),
             'step_counts': dict(Counter(str(len(json.loads(r['messages'][-1]['content'])['steps'])) for r in records)),
             'max_token_length': max((r.get('token_length', 0) for r in records), default=0) or None,

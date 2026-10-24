@@ -97,6 +97,31 @@ class DataCleaningTests(unittest.TestCase):
                 builder['load_authored'](directory)
             self.assertFalse((directory / 'train.jsonl').exists())
 
+    def test_holdout_selection_covers_rare_operations_and_preserves_records(self):
+        select = runpy.run_path(str(ROOT / 'scripts/build_data_cleaning.py'))['select_holdout']
+        rows = []
+        for group in ('weather', 'sports'):
+            for number in range(8):
+                step = ({'op': 'filter', 'column': 'n', 'operator': 'gt', 'value': 0}
+                        if number < 7 else {'op': 'sort', 'by': [{'column': 'n', 'ascending': True}]})
+                rows.append({'id': f'{group}-{number}', 'group_id': group,
+                             'messages': [{'role': 'assistant', 'content': json.dumps({'steps': [step]})}]})
+        before = copy.deepcopy(rows)
+        selected = select(rows, target=4)
+        self.assertEqual(selected, select(rows, target=4))
+        self.assertEqual(rows, before)
+        self.assertEqual(len(selected), 4)
+        for group in ('weather', 'sports'):
+            members = [r for r in selected if r['group_id'] == group]
+            self.assertEqual(len(members), 2)
+            self.assertEqual({json.loads(r['messages'][-1]['content'])['steps'][0]['op']
+                              for r in members}, {'filter', 'sort'})
+        self.assertEqual(selected, [r for r in rows if r['id'] in {v['id'] for v in selected}])
+        self.assertEqual(select(rows, target=len(rows)), rows)
+        for target in (0, 1, 2, 17):
+            with self.assertRaises(ValueError):
+                select(rows, target)
+
     def test_scoring_counts_missing_and_rejects_boolean_numeric_confusion(self):
         scorer = runpy.run_path(str(ROOT / 'scripts/score_data_cleaning.py'))['score']
         with tempfile.TemporaryDirectory() as tmp:
