@@ -30,7 +30,7 @@ class ExperimentExportTests(unittest.TestCase):
         self.assertEqual(manifest['evaluation_sha256'], digest(root / 'evaluation.json'))
         self.assertEqual(manifest['initial_archive_manifest_sha256'], digest(root / 'archive_manifest.json'))
         self.assertEqual(report['predictions_sha256'], digest(root / 'predictions.jsonl'))
-        self.assertEqual(report['suite_sha256'], digest(ROOT / 'datasets/benchmarks/doocs-leetcode/executable_v1.jsonl'))
+        self.assertEqual(report['suite_sha256'], digest(ROOT / 'datasets/leetcode/benchmarks/doocs-leetcode/executable_v1.jsonl'))
         self.assertEqual(report['passed'], sum(r['status'] == 'passed' for r in report['results']))
         self.assertEqual(report['total'], len(report['results']))
 

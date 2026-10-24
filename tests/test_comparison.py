@@ -12,7 +12,7 @@ COMPARE = runpy.run_path(str(ROOT / 'scripts/compare_eval.py'))['compare']
 class ComparisonTests(unittest.TestCase):
     def inputs(self):
         root = ROOT / 'reports/train-doocs-001'
-        return [ROOT / 'datasets/benchmarks/doocs-leetcode/executable_v1.jsonl',
+        return [ROOT / 'datasets/leetcode/benchmarks/doocs-leetcode/executable_v1.jsonl',
             root / 'baseline_predictions.jsonl', root / 'baseline_evaluation.json',
             root / 'predictions.jsonl', root / 'evaluation.json']
 

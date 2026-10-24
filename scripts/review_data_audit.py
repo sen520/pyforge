@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def interface_findings():
     findings = []
     for split in ('train', 'validation'):
-        for line in (ROOT / 'datasets' / (split + '.jsonl')).read_text(encoding='utf8').splitlines():
+        for line in (ROOT / 'datasets/leetcode' / (split + '.jsonl')).read_text(encoding='utf8').splitlines():
             row = json.loads(line)
             if row['source'] != 'doocs_reference_sft_v1':
                 continue

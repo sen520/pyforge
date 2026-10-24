@@ -46,7 +46,7 @@ class GenerationTests(unittest.TestCase):
     def test_uncertain_request_not_retried(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            source = Path(__file__).resolve().parents[1] / "datasets/sources/seed_questions.jsonl"
+            source = Path(__file__).resolve().parents[1] / "datasets/leetcode/sources/seed_questions.jsonl"
             def fail(*args):
                 raise RuntimeError("timeout")
             with patch("pyforge.generation.credentials", return_value=("test-key", "test-teacher")):
@@ -58,7 +58,7 @@ class GenerationTests(unittest.TestCase):
     def test_old_http_error_cannot_hide_new_uncertain_attempt(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            source = Path(__file__).resolve().parents[1] / "datasets/sources/seed_questions.jsonl"
+            source = Path(__file__).resolve().parents[1] / "datasets/leetcode/sources/seed_questions.jsonl"
             def http_fail(*args):
                 raise APIHTTPError(503)
             def uncertain_fail(*args):

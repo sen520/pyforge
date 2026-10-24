@@ -161,7 +161,7 @@ def build(source, output):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source',default='datasets/sources/seed_questions.jsonl')
+    parser.add_argument('--source',default='datasets/leetcode/sources/seed_questions.jsonl')
     parser.add_argument('--output',default='outputs/codex_build')
     args=parser.parse_args()
     print(json.dumps(build(args.source,args.output),ensure_ascii=False,indent=2))

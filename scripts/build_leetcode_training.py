@@ -92,7 +92,7 @@ def build(source, output, legacy, max_length=2048):
     if output.exists():
         raise ValueError('输出目录已存在，拒绝覆盖')
     revision = subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], text=True).strip()
-    benchmark = Path('datasets/benchmarks/doocs-leetcode')
+    benchmark = Path('datasets/leetcode/benchmarks/doocs-leetcode')
     original = json.loads((benchmark / 'manifest.json').read_text(encoding='utf-8'))
     if revision != original['source_revision']:
         raise ValueError('快照版本与冻结题库不一致')
@@ -173,7 +173,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', default='data/sources/doocs-leetcode')
     parser.add_argument('--output', required=True)
-    parser.add_argument('--legacy', default='datasets/archive/codex_v1')
+    parser.add_argument('--legacy', default='datasets/leetcode/archive/codex_v1')
     parser.add_argument('--max-length', type=int, default=2048)
     args = parser.parse_args()
     result = build(args.source, args.output, args.legacy, args.max_length)

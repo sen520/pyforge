@@ -9,9 +9,10 @@
 
 ## 数据编写
 
-- 默认由 Codex 直接编写、检查训练答案，使用 `datasets/`；硅基流动数据仅保留为历史版本。
+- 默认由 Codex 直接编写、检查训练答案，使用 `datasets/leetcode/`；硅基流动数据仅保留为历史版本。
 - 经用户授权，当前也使用 doocs 仓库已有 Python 题解扩充训练数据；必须保留上游归属，不标为 Codex 原创。上游静态检查与实际执行检查状态分别记录。
-- 当前三个集合固定为 `datasets/train.jsonl`、`datasets/validation.jsonl`、`datasets/test.jsonl`。来源、检查记录、算法评估与旧数据分别放入 sources、metadata、benchmarks、archive 子目录。
+- 数据按任务组织：旧 Python/LeetCode 数据放 `datasets/leetcode/`，新的中文需求转 JSON 数据清洗配置放 `datasets/data_cleaning/`（当前尚无样本），不同任务不混用。
+- LeetCode 数据集三个集合固定为 `datasets/leetcode/train.jsonl`、`datasets/leetcode/validation.jsonl`、`datasets/leetcode/test.jsonl`。来源、检查记录、算法评估与旧数据分别放入 sources、metadata、benchmarks、archive 子目录。
 - 旧加法示例已清理；按用户要求保留旧版硅基流动数据和原始输出。
 - 除非用户重新明确要求，不调用硅基流动或其他付费模型 API 生成答案。
 - 答案必须记录真实来源；自动执行检查不能标记为人工审核。

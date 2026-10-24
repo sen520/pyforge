@@ -13,7 +13,7 @@ from .paths import PROJECT_ROOT
 from .training import write_json
 
 
-DEFAULT_SUITE = PROJECT_ROOT / 'datasets/benchmarks/doocs-leetcode/executable_v1.jsonl'
+DEFAULT_SUITE = PROJECT_ROOT / 'datasets/leetcode/benchmarks/doocs-leetcode/executable_v1.jsonl'
 
 
 def generate(run, suite, output, data, max_tokens, base):
@@ -26,7 +26,7 @@ def generate(run, suite, output, data, max_tokens, base):
         raise RuntimeError(('基础' if base else '微调') + '模型生成失败，退出码：' + str(result.returncode))
 
 
-def benchmark(run, output, suite=DEFAULT_SUITE, data='datasets', max_tokens=1024,
+def benchmark(run, output, suite=DEFAULT_SUITE, data='datasets/leetcode', max_tokens=1024,
               image='python:3.12-slim', timeout=10):
     if type(max_tokens) is not int or max_tokens <= 0 or not math.isfinite(timeout) or timeout <= 0:
         raise ValueError('生成长度和执行超时必须为正数')

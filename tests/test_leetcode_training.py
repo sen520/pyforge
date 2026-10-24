@@ -13,13 +13,13 @@ BUILDER = runpy.run_path(str(ROOT / 'scripts/build_leetcode_training.py'))
 
 class LeetcodeTrainingTests(unittest.TestCase):
     def test_repaired_interfaces_match_actual_answer_and_preserve_hashes(self):
-        path = ROOT / 'datasets/metadata/interface_repair_v1/manifest.json'
+        path = ROOT / 'datasets/leetcode/metadata/interface_repair_v1/manifest.json'
         manifest = json.loads(path.read_text(encoding='utf8'))
         self.assertEqual(len(manifest['changes']), 57)
         changes = {r['id']: r for r in manifest['changes']}
         from hashlib import sha256
         for split in ('train', 'validation'):
-            for row in map(json.loads, (ROOT / 'datasets' / (split + '.jsonl')).read_text(encoding='utf8').splitlines()):
+            for row in map(json.loads, (ROOT / 'datasets/leetcode' / (split + '.jsonl')).read_text(encoding='utf8').splitlines()):
                 if row['id'] not in changes:
                     continue
                 change = changes[row['id']]
@@ -49,12 +49,12 @@ class LeetcodeTrainingTests(unittest.TestCase):
                 BUILDER['normalize'](code)
 
     def test_expanded_splits_and_reserved_benchmark(self):
-        manifest_path = ROOT / 'datasets/metadata/doocs_sft_v1/manifest.json'
+        manifest_path = ROOT / 'datasets/leetcode/metadata/doocs_sft_v1/manifest.json'
         if not manifest_path.exists():
             self.skipTest('扩充数据尚未构建')
         manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-        current = json.loads((ROOT / 'datasets/metadata/current_manifest.json').read_text(encoding='utf-8'))
-        splits, hashes = load_splits(ROOT / 'datasets')
+        current = json.loads((ROOT / 'datasets/leetcode/metadata/current_manifest.json').read_text(encoding='utf-8'))
+        splits, hashes = load_splits(ROOT / 'datasets/leetcode')
         reserved = set(manifest['reserved_benchmark_ids'])
         for name, rows in splits.items():
             self.assertEqual(len(rows), manifest['files'][name]['count'])

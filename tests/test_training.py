@@ -64,7 +64,7 @@ class TrainingConfigTests(unittest.TestCase):
                 check_resume(checkpoint, output, config, hashes)
 
     def test_dataset_group_leakage_rejected(self):
-        rows, _ = load_splits(ROOT / 'datasets')
+        rows, _ = load_splits(ROOT / 'datasets/leetcode')
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             rows['validation'][0]['group_id'] = rows['train'][0]['group_id']

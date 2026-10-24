@@ -64,7 +64,7 @@ def build(source, output):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", default="datasets/benchmarks/doocs-leetcode/questions.jsonl")
-    parser.add_argument("--output", default="datasets/benchmarks/doocs-leetcode/executable_v1.jsonl")
+    parser.add_argument("--source", default="datasets/leetcode/benchmarks/doocs-leetcode/questions.jsonl")
+    parser.add_argument("--output", default="datasets/leetcode/benchmarks/doocs-leetcode/executable_v1.jsonl")
     args = parser.parse_args()
     print(json.dumps(build(args.source, args.output), ensure_ascii=False, indent=2))

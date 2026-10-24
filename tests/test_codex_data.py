@@ -16,7 +16,7 @@ with patch.object(sys,'path',[str(ROOT/'scripts'),*sys.path]):
 
 class CodexDataTests(unittest.TestCase):
     def test_frozen_dataset_hashes_and_execution_status(self):
-        root=ROOT/'datasets'
+        root=ROOT/'datasets/leetcode'
         metadata=root/'metadata/codex_v1'
         manifest=json.loads((metadata/'dataset_manifest.json').read_text(encoding='utf-8'))
         self.assertEqual(manifest['verified'],100)
@@ -30,7 +30,7 @@ class CodexDataTests(unittest.TestCase):
         self.assertEqual(sum(row.get('mutant_detected',False) for row in checks),8)
 
     def test_complete_authorship_and_disjoint_groups(self):
-        rows=BUILDER['authored_rows'](ROOT/'datasets/sources/seed_questions.jsonl')
+        rows=BUILDER['authored_rows'](ROOT/'datasets/leetcode/sources/seed_questions.jsonl')
         self.assertEqual(len(rows),100)
         self.assertEqual(len({r['id'] for r in rows}),100)
         self.assertTrue(all(r['source']=='codex_authored_v1' for r in rows))
@@ -42,11 +42,11 @@ class CodexDataTests(unittest.TestCase):
 
     def test_offline_build_no_credentials_or_network(self):
         with tempfile.TemporaryDirectory() as tmp, patch('urllib.request.urlopen',side_effect=AssertionError('no network')):
-            result=BUILDER['build'](ROOT/'datasets/sources/seed_questions.jsonl',Path(tmp)/'dataset')
+            result=BUILDER['build'](ROOT/'datasets/leetcode/sources/seed_questions.jsonl',Path(tmp)/'dataset')
             self.assertEqual(result['external_model_api_calls'],0)
             self.assertEqual(result['count'],100)
             with self.assertRaises(ValueError):
-                BUILDER['build'](ROOT/'datasets/sources/seed_questions.jsonl',Path(tmp)/'dataset')
+                BUILDER['build'](ROOT/'datasets/leetcode/sources/seed_questions.jsonl',Path(tmp)/'dataset')
 
 
 if __name__=='__main__':

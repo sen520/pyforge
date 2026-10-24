@@ -146,7 +146,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('phase', choices=['generate', 'score'])
     parser.add_argument('--run', required=True)
-    parser.add_argument('--data', default='datasets/archive/codex_v1/test.jsonl', help='历史 5 题留出集；不支持新扩充测试集')
+    parser.add_argument('--data', default='datasets/leetcode/archive/codex_v1/test.jsonl', help='历史 5 题留出集；不支持新扩充测试集')
     parser.add_argument('--output', required=True)
     parser.add_argument('--max-new-tokens', type=int, default=512)
     parser.add_argument('--image', default='pyforge-eval:py312-pytest835')

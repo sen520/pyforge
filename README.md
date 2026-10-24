@@ -31,28 +31,31 @@ hf download Qwen/Qwen2.5-Coder-0.5B-Instruct --cache-dir E:/code/github/pyforge/
 
 ## 当前数据
 
+数据按任务整理：本轮旧数据已迁移到 `datasets/leetcode/`；新方向目录为 `datasets/data_cleaning/`，当前仅建立目录、尚无训练样本。目录总览见[数据集目录](datasets/数据集说明.md)。历史 JSON 清单与实验报告保留原路径及哈希。
+
+
 | 文件 | 条数 | 用途 |
 | --- | ---: | --- |
-| datasets/train.jsonl | 2,292 | 更新参数 |
-| datasets/validation.jsonl | 129 | 验证损失和检查点选择 |
-| datasets/test.jsonl | 123 | 新问答留出集，尚无统一执行器 |
+| datasets/leetcode/train.jsonl | 2,292 | 更新参数 |
+| datasets/leetcode/validation.jsonl | 129 | 验证损失和检查点选择 |
+| datasets/leetcode/test.jsonl | 123 | 新问答留出集，尚无统一执行器 |
 
-新增 2,449 条来自 doocs 既有 Python 参考答案，保留归属与许可，已做语法、静态依赖和完整对话长度检查，**未逐题执行验证**。另保留原有 90 条训练、5 条验证的已执行 Codex 数据；旧 5 条已分析测试题存档在 datasets/archive/codex_v1/。
+新增 2,449 条来自 doocs 既有 Python 参考答案，保留归属与许可，已做语法、静态依赖和完整对话长度检查，**未逐题执行验证**。另保留原有 90 条训练、5 条验证的已执行 Codex 数据；旧 5 条已分析测试题存档在 datasets/leetcode/archive/codex_v1/。
 
-已完成 200 题抽样审计：189 题通过、11 题未适配；另修复训练/验证中 57 条题面主接口缺失，答案和划分不变。当前文件哈希见 datasets/metadata/current_manifest.json，原始构建清单保留。详见[训练数据审计](docs/训练数据审计.md)。
+已完成 200 题抽样审计：189 题通过、11 题未适配；另修复训练/验证中 57 条题面主接口缺失，答案和划分不变。当前文件哈希见 datasets/leetcode/metadata/current_manifest.json，原始构建清单保留。详见[训练数据审计](docs/训练数据审计.md)。
 
-另有独立的 20 道算法题、100 个本地用例，排除在这次新增训练划分外。完整的 3,422 题历史题面库已部分用于训练，不能整体再算独立评估。见[数据集说明](datasets/数据集说明.md)与[训练数据扩充说明](docs/训练数据扩充说明.md)。
+另有独立的 20 道算法题、100 个本地用例，排除在这次新增训练划分外。完整的 3,422 题历史题面库已部分用于训练，不能整体再算独立评估。见[数据集说明](datasets/leetcode/数据集说明.md)与[训练数据扩充说明](docs/训练数据扩充说明.md)。
 
 ## 训练与验证
 
 ```powershell
-pyforge validate datasets/train.jsonl
-pyforge validate datasets/validation.jsonl
-pyforge validate datasets/test.jsonl
+pyforge validate datasets/leetcode/train.jsonl
+pyforge validate datasets/leetcode/validation.jsonl
+pyforge validate datasets/leetcode/test.jsonl
 # 4080 SUPER 完整数据：1.5B、2048 token、2 轮；使用新输出目录
-pyforge train --config configs/train_4080.json --data datasets --output outputs/train-4080-001 --offline
+pyforge train --config configs/train_4080.json --data datasets/leetcode --output outputs/train-4080-001 --offline
 # 10 步短冒烟：使用短的历史数据
-pyforge train --config configs/smoke_4060.json --data datasets/archive/codex_v1 --output outputs/smoke-new-001 --offline
+pyforge train --config configs/smoke_4060.json --data datasets/leetcode/archive/codex_v1 --output outputs/smoke-new-001 --offline
 ```
 
 validate 只检查数据格式；训练启动时额外检查跨集合 ID、题族与重复对话。验证损失自动计算，test 不参与损失或检查点选择。不要用 512 token smoke 配置训练全部新增问答，否则会大量过滤。4080 配置细节与首次运行检查见训练运行指南。
@@ -61,7 +64,7 @@ validate 只检查数据格式；训练启动时额外检查跨集合 ID、题�
 Get-Content outputs/train-4080-001/training_log.jsonl -Tail 10 -Wait
 Get-Content outputs/train-4080-001/metrics.json
 # 中断后使用实际存在的完整检查点，配置/数据/依赖必须与原运行一致
-pyforge train --config configs/train_4080.json --data datasets --output outputs/train-4080-001 --offline --resume outputs/train-4080-001/checkpoint-100
+pyforge train --config configs/train_4080.json --data datasets/leetcode --output outputs/train-4080-001 --offline --resume outputs/train-4080-001/checkpoint-100
 ```
 
 恢复不能从 adapter/ 开始，不能换配置或数据，也不能延长已完成计划。最终 adapter/ 导出验证损失最低的已保存检查点，不一定是最后一步。完整说明见[训练运行指南](docs/训练运行指南.md)。
@@ -107,7 +110,7 @@ Docker Desktop 需已启动并使用 Linux 容器。预测只读取 prompt，不
 ```powershell
 docker pull python:3.12-slim
 python scripts/predict_eval.py --run outputs/train-doocs-001 --data outputs/data-before-interface-repair --output outputs/doocs_finetuned_predictions_v2.jsonl
-pyforge evaluate --suite datasets/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions outputs/doocs_finetuned_predictions_v2.jsonl --report outputs/doocs_finetuned_report_v2.json --timeout 10
+pyforge evaluate --suite datasets/leetcode/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions outputs/doocs_finetuned_predictions_v2.jsonl --report outputs/doocs_finetuned_report_v2.json --timeout 10
 Get-Content outputs/doocs_finetuned_report_v2.json
 ```
 
@@ -115,7 +118,7 @@ Get-Content outputs/doocs_finetuned_report_v2.json
 
 ```powershell
 python scripts/predict_eval.py --run outputs/train-doocs-001 --data outputs/data-before-interface-repair --base --output outputs/doocs_base_predictions_v2.jsonl
-pyforge evaluate --suite datasets/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions outputs/doocs_base_predictions_v2.jsonl --report outputs/doocs_base_report_v2.json --timeout 10
+pyforge evaluate --suite datasets/leetcode/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions outputs/doocs_base_predictions_v2.jsonl --report outputs/doocs_base_report_v2.json --timeout 10
 ```
 
 两边生成和执行完成后，按相同题号创建逐题对照表：
@@ -138,7 +141,7 @@ python scripts/compare_eval.py --base-predictions outputs/doocs_base_predictions
 
 ```powershell
 python scripts/plot_training.py reports/train-doocs-001 --style trend --output outputs/archived-loss-trend.png
-pyforge evaluate --suite datasets/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions reports/train-doocs-001/predictions.jsonl --report outputs/archived-evaluation-v1.json --timeout 10
+pyforge evaluate --suite datasets/leetcode/benchmarks/doocs-leetcode/executable_v1.jsonl --predictions reports/train-doocs-001/predictions.jsonl --report outputs/archived-evaluation-v1.json --timeout 10
 ```
 
 导出新实验（有匹配执行报告时增加 --evaluation）：

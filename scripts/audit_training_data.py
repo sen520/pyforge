@@ -165,11 +165,11 @@ def audit(output, execute=False):
     output.mkdir(parents=True, exist_ok=True)
     rows, hashes = [], {}
     for split in ('train', 'validation'):
-        path = ROOT / 'datasets' / (split + '.jsonl')
+        path = ROOT / 'datasets/leetcode' / (split + '.jsonl')
         hashes[split] = digest(path.read_bytes())
         rows.extend(r for r in map(json.loads, path.read_text(encoding='utf8').splitlines()) if r['source'] == 'doocs_reference_sft_v1')
     selected = sample_rows(rows)
-    questions = {q['id']: q for q in map(json.loads, (ROOT / 'datasets/benchmarks/doocs-leetcode/questions.jsonl').read_text(encoding='utf8').splitlines())}
+    questions = {q['id']: q for q in map(json.loads, (ROOT / 'datasets/leetcode/benchmarks/doocs-leetcode/questions.jsonl').read_text(encoding='utf8').splitlines())}
     items = [prepare(row, questions[row['id']]) for row in selected]
     manifest = {'version': 1, 'seed': 42, 'sampling': 'proportional_split_difficulty_largest_remainder_sha256_rank',
                 'population': len(rows), 'sample_size': len(items), 'dataset_sha256': hashes,

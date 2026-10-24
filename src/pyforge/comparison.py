@@ -103,7 +103,7 @@ def compare(suite, base_predictions, base_report, fine_predictions, fine_report,
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--suite', default='datasets/benchmarks/doocs-leetcode/executable_v1.jsonl')
+    parser.add_argument('--suite', default='datasets/leetcode/benchmarks/doocs-leetcode/executable_v1.jsonl')
     parser.add_argument('--base-predictions', required=True)
     parser.add_argument('--base-report', required=True)
     parser.add_argument('--finetuned-predictions', required=True)

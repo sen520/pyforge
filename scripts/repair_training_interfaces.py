@@ -22,12 +22,16 @@ def restore(output):
     output = Path(output)
     if output.exists():
         raise ValueError('恢复目录已存在')
-    current = json.loads((ROOT / 'datasets/metadata/current_manifest.json').read_text(encoding='utf8'))
-    manifest = json.loads((ROOT / current['repair_manifest']).read_text(encoding='utf8'))
+    current = json.loads((ROOT / 'datasets/leetcode/metadata/current_manifest.json').read_text(encoding='utf8'))
+    # 历史清单保留原始字节；仅在读取时映射迁移前的路径。
+    manifest_path = Path(current['repair_manifest'])
+    if manifest_path.parts[:2] == ('datasets', 'metadata'):
+        manifest_path = Path('datasets/leetcode') / manifest_path.relative_to('datasets')
+    manifest = json.loads((ROOT / manifest_path).read_text(encoding='utf8'))
     changes = {r['id']:r for r in manifest['changes']}
     pending = {}
     for split in ('train', 'validation'):
-        raw = (ROOT / 'datasets' / (split + '.jsonl')).read_bytes()
+        raw = (ROOT / 'datasets/leetcode' / (split + '.jsonl')).read_bytes()
         if sha(raw) != manifest['files'][split]['after_sha256']:
             raise ValueError('当前数据不匹配修复版本')
         lines = []
@@ -61,7 +65,7 @@ def repair(output, apply=False):
     tokenizer = AutoTokenizer.from_pretrained(str(snapshot), local_files_only=True)
     changes, files, pending = [], {}, {}
     for split in ('train', 'validation'):
-        path = ROOT / 'datasets' / (split + '.jsonl')
+        path = ROOT / 'datasets/leetcode' / (split + '.jsonl')
         raw_bytes = path.read_bytes()
         if sha(raw_bytes) != audit['dataset_sha256'][split]:
             raise ValueError('数据不是审计时的冻结版本：' + split)
@@ -112,19 +116,19 @@ def repair(output, apply=False):
     if apply:
         for path, data in pending.items():
             path.write_bytes(data)
-        original = json.loads((ROOT / 'datasets/metadata/doocs_sft_v1/manifest.json').read_text(encoding='utf8'))
+        original = json.loads((ROOT / 'datasets/leetcode/metadata/doocs_sft_v1/manifest.json').read_text(encoding='utf8'))
         current = {'version': 'interface_repair_v1', 'parent': 'doocs_sft_v1',
                    'repair_manifest': output.resolve().relative_to(ROOT).as_posix() + '/manifest.json',
                    'files': copy.deepcopy(original['files'])}
         for split, info in files.items():
             current['files'][split]['sha256'] = info['after_sha256']
-        (ROOT / 'datasets/metadata/current_manifest.json').write_text(json.dumps(current, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
+        (ROOT / 'datasets/leetcode/metadata/current_manifest.json').write_text(json.dumps(current, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
     print(json.dumps({'changes':len(changes), 'applied':apply, 'files':files}, ensure_ascii=False))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=ROOT / 'datasets/metadata/interface_repair_v1')
+    parser.add_argument('--output', type=Path, default=ROOT / 'datasets/leetcode/metadata/interface_repair_v1')
     parser.add_argument('--apply', action='store_true')
     parser.add_argument('--restore', action='store_true', help='由修复清单恢复旧 train/validation 到 --output；不修改正式集合')
     args = parser.parse_args()
