@@ -8,7 +8,22 @@ RTX 4080 SUPER 的 1.5B 数据清洗训练、验证/测试预测和 Excel 导出
 
 ## 脚本使用：验证、测试与 Excel 模型对比
 
-入口脚本：[scripts/benchmark_data_cleaning.py](scripts/benchmark_data_cleaning.py)。在项目根目录运行，读取已训练好的数据清洗模型，不重新训练。
+评估入口：[scripts/benchmark_data_cleaning.py](scripts/benchmark_data_cleaning.py)。按下面顺序先训练、后评估；评估脚本读取已训练好的数据清洗模型，不重新训练。
+
+### 训练数据清洗模型
+
+在 PowerShell 中执行：
+
+```powershell
+Set-Location E:\code\github\pyforge
+.\.venv\Scripts\Activate.ps1
+pyforge doctor
+pyforge train --config configs/train_4080.json --data datasets/data_cleaning --output outputs/data-cleaning-002 --offline
+```
+
+使用 RTX 4080 SUPER 的 1.5B 配置，训练 2 轮、126 个优化器更新步；训练期间自动计算验证 loss。等待训练正常结束、run_status.json 为 completed 后，再执行下方评估命令。
+
+训练输出目录必须是新目录。若 `data-cleaning-002` 已存在且训练完成，直接跳过此步；若需要新实验，请改为 `data-cleaning-003` 等新编号，并将下方评估命令的 `--run` 同步修改，不能覆盖已有目录。
 
 ### 完整运行验证集和测试集
 
