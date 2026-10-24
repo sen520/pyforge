@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pyforge"
 version = "0.1.0"
-description = "面向个人 GPU 的 Python 编程助手微调工具"
+description = "面向个人 GPU 的中文需求转 JSON 数据清洗配置微调工具"
 requires-python = ">=3.11,<3.13"
 dependencies = []
 

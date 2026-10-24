@@ -35,7 +35,7 @@ def generate_config(prompt, run=DEFAULT_RUN, max_new_tokens=256):
         raise ValueError(f'找不到 {manifest_path}，请指定实际存在的训练目录')
     manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
     if manifest.get('system_prompt') != SYSTEM_PROMPT:
-        raise ValueError('该运行不是当前数据清洗配置模型，请勿使用旧 LeetCode 模型')
+        raise ValueError('该运行不是当前数据清洗配置模型，请指定匹配的训练目录')
     if not (run / 'adapter/adapter_model.safetensors').is_file():
         raise ValueError('找不到 adapter/adapter_model.safetensors，请先完成训练')
 

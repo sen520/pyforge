@@ -6,31 +6,17 @@ from .data import prepare, read_records
 
 
 def main():
-    parser = argparse.ArgumentParser(description="PyForge Python 编程助手微调")
+    parser = argparse.ArgumentParser(description="PyForge 数据清洗配置模型训练与评估")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("doctor", help="检查 CUDA 与 BF16")
-    generation = commands.add_parser("generate", help="使用硅基流动生成教师问答候选数据")
-    generation.add_argument("--source", default="datasets/leetcode/sources/seed_questions.jsonl")
-    generation.add_argument("--output", default="outputs/teacher_v1")
-    generation.add_argument("--limit", type=int, default=3)
-    generation.add_argument("--max-tokens", type=int, default=2048)
-    generation.add_argument("--workers", type=int, default=1)
-    generation.add_argument("--skip-uncertain", action="store_true", help="跳过结果未确认的请求，仅生成其他题目")
-    generation.add_argument("--timeout", type=int, default=120)
-    evaluation = commands.add_parser("evaluate", help="Docker 隔离评估算法回答")
-    evaluation.add_argument("--suite", required=True)
-    evaluation.add_argument("--predictions", required=True)
-    evaluation.add_argument("--report", required=True)
-    evaluation.add_argument("--image", default="python:3.12-slim")
-    evaluation.add_argument("--timeout", type=float, default=5)
-    comparison = commands.add_parser("benchmark", help="一键生成基础/微调答案、执行相同测试并输出对照表")
+    comparison = commands.add_parser("benchmark", help="一键数据清洗测试、验证、基础/微调对比与 Excel 导出")
     comparison.add_argument("--run", required=True)
     comparison.add_argument("--output", required=True)
-    comparison.add_argument("--suite", help="默认使用保留的 20 道可执行算法题")
-    comparison.add_argument("--data", default="datasets/leetcode")
-    comparison.add_argument("--max-new-tokens", type=int, default=1024)
-    comparison.add_argument("--image", default="python:3.12-slim")
-    comparison.add_argument("--timeout", type=float, default=10)
+    comparison.add_argument("--data", default="datasets/data_cleaning")
+    comparison.add_argument("--reuse-predictions", help="复用已有四份完整预测，不加载模型")
+    comparison.add_argument("--max-new-tokens", type=int, default=512)
+    comparison.add_argument("--node", help="覆盖 Codex 附带 Node 可执行文件路径")
+    comparison.add_argument("--artifact-modules", help="覆盖附带 node_modules 路径")
     validate = commands.add_parser("validate", help="校验 JSONL 数据")
     validate.add_argument("source")
     split = commands.add_parser("prepare", help="按 group_id 划分数据")
@@ -39,7 +25,7 @@ def main():
     split.add_argument("--seed", type=int, default=42)
     training = commands.add_parser("train", help="执行 QLoRA 训练")
     training.add_argument("--config", required=True)
-    training.add_argument("--data", default="datasets/leetcode")
+    training.add_argument("--data", default="datasets/data_cleaning")
     training.add_argument("--output", required=True)
     training.add_argument("--resume")
     training.add_argument("--offline", action="store_true", help="仅使用项目中的模型缓存")
@@ -55,17 +41,11 @@ def main():
             result = {"valid_records": len(read_records(args.source))}
         elif args.command == "prepare":
             result = prepare(args.source, args.destination, args.seed)
-        elif args.command == "evaluate":
-            from .evaluation import evaluate
-            result = evaluate(args.suite, args.predictions, args.report, args.image, args.timeout)
         elif args.command == "benchmark":
-            from .benchmark import benchmark, DEFAULT_SUITE
-            result = benchmark(args.run, args.output, args.suite or DEFAULT_SUITE, args.data,
-                args.max_new_tokens, args.image, args.timeout)
-        elif args.command == "generate":
-            from .generation import generate
-            result = generate(args.source, args.output, args.limit, args.max_tokens, args.timeout,
-                              workers=args.workers, skip_uncertain=args.skip_uncertain)
+            from .data_cleaning_benchmark import benchmark
+            comparison = benchmark(args.run, args.output, args.data, args.reuse_predictions,
+                                   args.max_new_tokens, args.node, args.artifact_modules)
+            result = {split: payload["summary"] for split, payload in comparison.items()}
         else:
             from .training import chat as generate, gpu_check, train
             if args.command == "doctor":

@@ -1,4 +1,4 @@
-"""为可执行算法题库生成原始预测；模型只读取 prompt，不读取 tests 或参考答案。"""
+"""为数据清洗题面生成原始预测；模型只读取 prompt，不读取参考答案。"""
 
 import argparse
 import hashlib
@@ -13,7 +13,7 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def predict(run, suite, output, data='datasets/leetcode', max_tokens=1024, base=False, limit=None):
+def predict(run, suite, output, data='datasets/data_cleaning', max_tokens=512, base=False, limit=None):
     if max_tokens <= 0 or (limit is not None and limit <= 0):
         raise ValueError('生成长度和 limit 必须为正整数')
     run, suite, output = Path(run), Path(suite), Path(output)
@@ -83,10 +83,10 @@ def predict(run, suite, output, data='datasets/leetcode', max_tokens=1024, base=
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run', required=True)
-    parser.add_argument('--suite', default='datasets/leetcode/benchmarks/doocs-leetcode/executable_v1.jsonl')
+    parser.add_argument('--suite', required=True, help='只含 id/prompt 的题面 JSONL')
     parser.add_argument('--output', required=True)
-    parser.add_argument('--data', default='datasets/leetcode')
-    parser.add_argument('--max-new-tokens', type=int, default=1024)
+    parser.add_argument('--data', default='datasets/data_cleaning')
+    parser.add_argument('--max-new-tokens', type=int, default=512)
     parser.add_argument('--base', action='store_true', help='不加载适配器，生成同一基础模型的基线预测')
     parser.add_argument('--limit', type=int, help='只生成前 N 题，用于检查流程；完整评估不要设置')
     args = parser.parse_args()

@@ -7,7 +7,6 @@ __pycache__/
 .pytest_cache/
 .env
 .env.*
-!.env.example
 # 数据及真实审核状态统一存放 datasets；data 仅保留本地下载缓存。
 data/
 outputs/

@@ -51,7 +51,7 @@ class DataCleaningExampleTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             run = self.make_run(tmp, system='old Python programming prompt')
             with patch('pyforge.training.chat') as model:
-                with self.assertRaisesRegex(ValueError, '旧 LeetCode'):
+                with self.assertRaisesRegex(ValueError, '不是当前数据清洗'):
                     generate_config(DEFAULT_PROMPT, run)
                 with self.assertRaisesRegex(ValueError, '对象数组'):
                     clean_rows(DEFAULT_PROMPT, {'邮箱': 'x'}, run)

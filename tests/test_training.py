@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class TrainingConfigTests(unittest.TestCase):
     def test_config_accepts_utf8_with_and_without_bom(self):
-        source = ROOT / 'configs/train_4060.json'
+        source = ROOT / 'configs/train_4080.json'
         expected = load_config(source)
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'config.json'
@@ -31,7 +31,7 @@ class TrainingConfigTests(unittest.TestCase):
             self.assertEqual(os.environ['HF_HUB_CACHE'], str(MODEL_CACHE_DIR))
 
     def test_reject_invalid_configuration_before_loading_model(self):
-        raw = json.loads((ROOT / 'configs/smoke_4060.json').read_text(encoding='utf-8'))
+        raw = json.loads((ROOT / 'configs/train_4080.json').read_text(encoding='utf-8'))
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'config.json'
             for change in ({'learning_rate': float('nan')}, {'epochs': float('inf')}, {'max_length': True},
@@ -41,7 +41,7 @@ class TrainingConfigTests(unittest.TestCase):
                     load_config(path)
 
     def test_resume_requires_complete_and_matching_checkpoint(self):
-        config = load_config(ROOT / 'configs/smoke_4060.json')
+        config = load_config(ROOT / 'configs/train_4080.json')
         with tempfile.TemporaryDirectory() as tmp:
             output = Path(tmp)
             checkpoint = output / 'checkpoint-2'
@@ -64,7 +64,7 @@ class TrainingConfigTests(unittest.TestCase):
                 check_resume(checkpoint, output, config, hashes)
 
     def test_dataset_group_leakage_rejected(self):
-        rows, _ = load_splits(ROOT / 'datasets/leetcode')
+        rows, _ = load_splits(ROOT / 'datasets/data_cleaning')
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             rows['validation'][0]['group_id'] = rows['train'][0]['group_id']
