@@ -1,12 +1,12 @@
 # PyForge
 
-面向个人 NVIDIA GPU 的 Python 编程助手微调项目，使用 Python 3.12、Transformers Trainer、PEFT 和 bitsandbytes 进行 SFT + QLoRA。本地 RTX 4060 用于开发，RTX 4080 SUPER 用于后续 1.5B 实验。
+面向个人 NVIDIA GPU 的 Python 编程助手微调项目，使用 Python 3.12、Transformers Trainer、PEFT 和 bitsandbytes 进行 SFT + QLoRA。当前工作目录为 `E:\code\github\pyforge`，RTX 4080 SUPER（16 GB）用于 1.5B 正式训练；RTX 4060 保留用于小规模测试。
 
 当前已在原生 Windows、RTX 4060 上完成 0.5B 模型的 2 轮训练（1,146 步），支持离线加载、完整恢复、最佳检查点选择、推理、批量评估预测、日志绘图和轻量实验归档。训练完成不代表代码正确率达标。
 
 ## 安装环境
 
-在项目根目录激活自己准备的 Python 3.12 虚拟环境。实测 PyTorch 为 2.6.0+cu124；训练扩展版本固定在 pyproject.toml，安装源仍需单独指定。
+在 PowerShell 中先执行 `Set-Location E:\code\github\pyforge`，再激活自己准备的 Python 3.12 虚拟环境。实测 PyTorch 为 2.6.0+cu124；训练扩展版本固定在 pyproject.toml，安装源仍需单独指定。
 
 ```powershell
 python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124
@@ -21,13 +21,13 @@ python -m unittest discover -s tests -v
 
 ```powershell
 python -m pip install "huggingface_hub>=0.34,<1"
-# 4060：0.5B
-hf download Qwen/Qwen2.5-Coder-0.5B-Instruct --cache-dir D:/sen/pyforge/models/hub
-# 4080 SUPER：按需下载 1.5B，该设备和配置尚未实测
-hf download Qwen/Qwen2.5-Coder-1.5B-Instruct --cache-dir D:/sen/pyforge/models/hub
+# 当前 4080 SUPER：1.5B，训练配置尚未完成实测验证
+hf download Qwen/Qwen2.5-Coder-1.5B-Instruct --cache-dir E:/code/github/pyforge/models/hub
+# 可选：4060 小规模测试使用 0.5B
+hf download Qwen/Qwen2.5-Coder-0.5B-Instruct --cache-dir E:/code/github/pyforge/models/hub
 ```
 
-迁移后替换缓存路径为项目下 models/hub 的绝对路径。代码优先使用该缓存；--offline 禁止联网，缺失版本报错。中断后重跑下载命令可复用缓存，模型权重不提交 Git。
+以上缓存路径对应当前工作目录；以后迁移时改为新项目下 models/hub 的绝对路径。代码优先使用该缓存；--offline 禁止联网，缺失版本报错。中断后重跑下载命令可复用缓存，模型权重不提交 Git。
 
 ## 当前数据
 
@@ -49,19 +49,19 @@ hf download Qwen/Qwen2.5-Coder-1.5B-Instruct --cache-dir D:/sen/pyforge/models/h
 pyforge validate datasets/train.jsonl
 pyforge validate datasets/validation.jsonl
 pyforge validate datasets/test.jsonl
-# 完整数据：2048 token、2 轮；使用新输出目录
-pyforge train --config configs/train_4060.json --data datasets --output outputs/train-doocs-002 --offline
+# 4080 SUPER 完整数据：1.5B、2048 token、2 轮；使用新输出目录
+pyforge train --config configs/train_4080.json --data datasets --output outputs/train-4080-001 --offline
 # 10 步短冒烟：使用短的历史数据
 pyforge train --config configs/smoke_4060.json --data datasets/archive/codex_v1 --output outputs/smoke-new-001 --offline
 ```
 
-validate 只检查数据格式；训练启动时额外检查跨集合 ID、题族与重复对话。验证损失自动计算，test 不参与损失或检查点选择。不要用 512 token smoke 配置训练全部新增问答，否则会大量过滤。4080 使用 configs/train_4080.json。
+validate 只检查数据格式；训练启动时额外检查跨集合 ID、题族与重复对话。验证损失自动计算，test 不参与损失或检查点选择。不要用 512 token smoke 配置训练全部新增问答，否则会大量过滤。4080 配置细节与首次运行检查见训练运行指南。
 
 ```powershell
-Get-Content outputs/train-doocs-002/training_log.jsonl -Tail 10 -Wait
-Get-Content outputs/train-doocs-002/metrics.json
+Get-Content outputs/train-4080-001/training_log.jsonl -Tail 10 -Wait
+Get-Content outputs/train-4080-001/metrics.json
 # 中断后使用实际存在的完整检查点，配置/数据/依赖必须与原运行一致
-pyforge train --config configs/train_4060.json --data datasets --output outputs/train-doocs-002 --offline --resume outputs/train-doocs-002/checkpoint-100
+pyforge train --config configs/train_4080.json --data datasets --output outputs/train-4080-001 --offline --resume outputs/train-4080-001/checkpoint-100
 ```
 
 恢复不能从 adapter/ 开始，不能换配置或数据，也不能延长已完成计划。最终 adapter/ 导出验证损失最低的已保存检查点，不一定是最后一步。完整说明见[训练运行指南](docs/训练运行指南.md)。
@@ -69,9 +69,9 @@ pyforge train --config configs/train_4060.json --data datasets --output outputs/
 ## 推理与绘图
 
 ```powershell
-pyforge chat --run outputs/train-doocs-001 --offline --max-new-tokens 512 --prompt "编写保持原顺序的列表去重函数，说明输入限制并给出边界条件测试。"
-python scripts/plot_training.py outputs/train-doocs-001
-python scripts/plot_training.py outputs/train-doocs-001 --style trend --window 20
+pyforge chat --run outputs/train-4080-001 --offline --max-new-tokens 512 --prompt "编写保持原顺序的列表去重函数，说明输入限制并给出边界条件测试。"
+python scripts/plot_training.py outputs/train-4080-001
+python scripts/plot_training.py outputs/train-4080-001 --style trend --window 20
 ```
 
 图片默认保存到运行目录 plots/。趋势图蓝线为 20 点分段均值，红线为原始验证损失，空心菱形为不足一个窗口的均值；不能用它代替代码执行通过率。
@@ -81,7 +81,7 @@ python scripts/plot_training.py outputs/train-doocs-001 --style trend --window 2
 推荐用一条命令完成“同一 20 题分别发给基础模型与微调模型 → 相同 Docker 测试 → 逐题表格”：
 
 ```powershell
-pyforge benchmark --run outputs/train-doocs-002 --output outputs/benchmark-002
+pyforge benchmark --run outputs/train-4080-001 --output outputs/benchmark-4080-001
 ```
 
 上例用于用当前修复后数据新训练的运行。旧 train-doocs-001 绑定修复前的数据哈希，评估前重建旧数据到独立目录（目录已存在则复用），再显式指定 --data：
@@ -95,9 +95,9 @@ pyforge benchmark --run outputs/train-doocs-001 --data outputs/data-before-inter
 
 命令自动完成五步：基础预测、微调预测、基础执行、微调执行、生成对照。结束时终端打印 20 行结果表，并保存：
 
-- outputs/benchmark-001/comparison/逐题答案对比.html：结果表，可展开同一题面与两边完整原始回答。
-- outputs/benchmark-001/comparison/逐题对比.md：20 行结果与汇总。
-- outputs/benchmark-001/comparison/comparison.json：机器可读数据与来源哈希。
+- outputs/benchmark-4080-001/comparison/逐题答案对比.html：结果表，可展开同一题面与两边完整原始回答。
+- outputs/benchmark-4080-001/comparison/逐题对比.md：20 行结果与汇总。
+- outputs/benchmark-4080-001/comparison/comparison.json：机器可读数据与来源哈希。
 - 输出根目录的两份预测、生成清单、执行报告与 pipeline_status.json。
 
 输出目录必须是新目录；中断或失败会记录阶段，不会伪造完成状态。当前一键入口不支持从中间阶段恢复；已有完整预测/报告时可用下面的分步入口，不必重新生成。自动生成的是 HTML/Markdown 表格，不依赖 Excel 或桌面应用；此前提供的 xlsx 是该次对照的额外导出文件。

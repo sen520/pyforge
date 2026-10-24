@@ -4,6 +4,7 @@
 
 - Python 源码、测试、脚本与配置文件使用英文命名。
 - 说明文档使用中文文件名；`README.md` 和 `AGENTS.md` 保留约定名称。
+- 当前工作目录为 `E:\code\github\pyforge`；文档中的当前训练命令默认使用 `configs/train_4080.json`，历史实验记录保留实际硬件和参数。
 - 当前开发环境使用 Python 3.12；本地 RTX 4060 用于小规模测试，RTX 4080 SUPER 用于正式训练。
 
 ## 数据编写
