@@ -1,4 +1,4 @@
-"""一条命令完成数据清洗验证/测试、基础模型对比和 Excel 导出。"""
+"""一条命令完成数据清洗测试/验证、基础模型对比和 Excel 导出。"""
 
 import argparse
 from pathlib import Path

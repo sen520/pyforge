@@ -6,11 +6,11 @@
 
 RTX 4080 SUPER 的 1.5B 数据清洗训练、验证/测试预测和 Excel 导出也已在本地跑通。当前数据为训练 1,000 条、验证 200 条、测试 200 条；相关本地产物在 outputs/，不随 Git 提交。
 
-## 脚本使用：验证、测试与 Excel 模型对比
+## 脚本使用：训练、测试、验证与 Excel 模型对比
 
-评估入口：[scripts/benchmark_data_cleaning.py](scripts/benchmark_data_cleaning.py)。按下面顺序先训练、后评估；评估脚本读取已训练好的数据清洗模型，不重新训练。
+评估入口：[scripts/benchmark_data_cleaning.py](scripts/benchmark_data_cleaning.py)。按下面顺序训练、测试、验证；评估脚本读取已训练好的数据清洗模型，不重新训练。
 
-### 训练数据清洗模型
+### 1. 训练数据清洗模型
 
 在 PowerShell 中执行：
 
@@ -25,9 +25,9 @@ pyforge train --config configs/train_4080.json --data datasets/data_cleaning --o
 
 训练输出目录必须是新目录。若 `data-cleaning-002` 已存在且训练完成，直接跳过此步；若需要新实验，请改为 `data-cleaning-003` 等新编号，并将下方评估命令的 `--run` 同步修改，不能覆盖已有目录。
 
-### 完整运行验证集和测试集
+### 2. 测试
 
-已完成 `outputs/data-cleaning-002` 训练时，一条命令运行验证、测试、基础/微调模型对比和 Excel 导出：
+已完成 `outputs/data-cleaning-002` 训练时，一条命令先运行测试、再运行验证，比较基础/微调模型并导出 Excel：
 
 ```powershell
 Set-Location E:\code\github\pyforge
@@ -35,9 +35,13 @@ Set-Location E:\code\github\pyforge
 python scripts/benchmark_data_cleaning.py --run outputs/data-cleaning-002 --output outputs/data-cleaning-comparison-001
 ```
 
-执行顺序为验证集微调模型、验证集基础模型、测试集微调模型、测试集基础模型，各 200 条。每份预测分别计算严格评分和去代码块外壳的诊断评分，最后导出 Excel。
+执行顺序为测试集微调模型、测试集基础模型、验证集微调模型、验证集基础模型，各 200 条。每份预测分别计算严格评分和去代码块外壳的诊断评分，最后导出 Excel。
 
-### 复用已有预测，只生成评分与 Excel
+### 3. 验证
+
+上面的脚本完成测试后，会自动继续验证集的微调和基础模型预测及评分，无需再执行一条验证命令。全部完成后生成 Excel，查看测试集与验证集各自的结果。训练过程中计算的验证 loss 与这里生成 JSON 答案的验证评分是两个指标。
+
+### 已有预测时：跳过生成，只导出评分与 Excel
 
 已有 `outputs/data-cleaning-eval-002` 中的四份完整预测时，可以直接复用，不再加载模型：
 

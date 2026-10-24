@@ -110,8 +110,8 @@ class DataCleaningBenchmarkTests(unittest.TestCase):
                 self.predictions(path.parent, split, mode, run, records)
             with patch('pyforge.data_cleaning_benchmark.find_runtime', return_value=(root / 'node', root / 'modules')):
                 benchmark(run, root / 'output', data, runner=runner, exporter=self.fake_export)
-            self.assertEqual(calls, [('validation', 'finetuned'), ('validation', 'base'),
-                                     ('test', 'finetuned'), ('test', 'base')])
+            self.assertEqual(calls, [('test', 'finetuned'), ('test', 'base'),
+                                     ('validation', 'finetuned'), ('validation', 'base')])
 
     def test_mismatched_conditions_and_tampered_predictions_are_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -145,7 +145,7 @@ class DataCleaningBenchmarkTests(unittest.TestCase):
                               exporter=lambda *a: self.fail('must not export failed generation'))
             status = json.loads((root / 'output/pipeline_status.json').read_text(encoding='utf-8'))
             self.assertEqual(status['status'], 'failed')
-            self.assertEqual(status['stage'], 'validation_finetuned')
+            self.assertEqual(status['stage'], 'test_finetuned')
 
 
 if __name__ == '__main__':

@@ -159,7 +159,7 @@ def benchmark(run, output, data=None, reuse_predictions=None, max_tokens=512, no
         raise ValueError('训练尚未完成，run_status 必须为 completed')
     if sha(data / 'train.jsonl') != run_manifest['data_sha256']['train']:
         raise ValueError('训练数据哈希不符；请使用数据清洗运行，不能使用旧 LeetCode 模型')
-    records = {split: read_records(data / f'{split}.jsonl') for split in ('validation', 'test')}
+    records = {split: read_records(data / f'{split}.jsonl') for split in ('test', 'validation')}
     for split, rows in records.items():
         if any(r['messages'][0].get('role') != 'system' or
                r['messages'][0]['content'] != run_manifest.get('system_prompt') for r in rows):
